@@ -57,19 +57,39 @@ const NavBar = () => {
           {loading ? (
             <span className="loading loading-spinner"></span>
           ) : user ? (
-            <div className="flex items-center gap-3">
+            <div className="relative">
               <img
-                className="w-10 h-10 rounded-full"
-                src={user?.photoURL}
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="w-10 h-10 rounded-full cursor-pointer"
+                src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
                 alt="user"
               />
 
-              <button
-                onClick={handleLogOut}
-                className="px-4 py-1 border rounded hover:bg-white hover:text-black"
-              >
-                Logout
-              </button>
+              {mobileOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
+                  <NavLink
+                    to="/profile"
+                    className="block px-4 py-2 hover:bg-gray-200"
+                  >
+                    Profile
+                  </NavLink>
+
+                  <NavLink
+                    to="/update-profile"
+                    className="block px-4 py-2 hover:bg-gray-200"
+                  >
+                    Edit Profile
+                  </NavLink>
+
+
+                  <button
+                    onClick={handleLogOut}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <>

@@ -5,6 +5,9 @@ import Home from '../Components/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
 import Products from '../Pages/Products';
+import Profile from '../Pages/Profile';
+import PrivateRoute from './PrivateRoute';
+import UpdateProfile from '../Pages/UpdateProfile';
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +29,18 @@ export const router = createBrowserRouter([
       {
         path: "/products",
         element: <Products></Products>
+      },
+      {
+        path: "/profile",
+        element: <PrivateRoute>
+          <Profile></Profile>
+        </PrivateRoute>
+      },
+      {
+        path: "/update-profile",
+        element: <PrivateRoute>
+          <UpdateProfile></UpdateProfile>
+          </PrivateRoute>
       }
     ]
   },
