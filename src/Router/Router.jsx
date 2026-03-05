@@ -4,6 +4,7 @@ import RootLayout from '../Layouts/RootLayout';
 import Home from '../Components/Home';
 import Login from '../Pages/Login';
 import Register from '../Pages/Register';
+import Products from '../Pages/Products';
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>
       },
+      {
+        path: "/products",
+        element: <Products></Products>
+      }
     ]
   },
 ]);
