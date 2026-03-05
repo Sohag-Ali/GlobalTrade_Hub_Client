@@ -6,7 +6,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { googleSignIn, register, user,logOut } = use(AuthContext);
+  const { googleSignIn, register, user, logOut } = use(AuthContext);
   const [passValidation, setPassValidation] = useState("");
   console.log(user);
 
@@ -35,7 +35,24 @@ const Register = () => {
 
     register(email, password)
       .then((result) => {
-         logOut();
+        const userInfo = {
+          name: name,
+          email: email,
+          photo: photo,
+        };
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("User created:", data);
+        });
+
+        logOut();
         Swal.fire({
           title: "Success",
           text: "Registered Successfully",
@@ -73,6 +90,23 @@ const Register = () => {
   const handleGoogleSign = () => {
     googleSignIn()
       .then((result) => {
+          const userInfo = {        
+            name: result.user.displayName,
+            email: result.user.email,
+            photo: result.user.photoURL,  
+          };
+          fetch("http://localhost:3000/users", {
+            method: "POST",   
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(userInfo),
+          })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("User created:", data);
+          });
+          
         Swal.fire({
           title: "Success",
           text: "Registered Successful",
@@ -88,8 +122,9 @@ const Register = () => {
       });
   };
 
-  const inputClasses = "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
-  
+  const inputClasses =
+    "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div

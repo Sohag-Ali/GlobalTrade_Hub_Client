@@ -42,6 +42,23 @@ const Login = () => {
   const handleGoogleSign = () => {
     googleSignIn()
       .then((result) => {
+        const userInfo = {
+          name: result.user.displayName,
+          email: result.user.email,
+          photo: result.user.photoURL,
+        };
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("User created:", data);
+        });
+        
         Swal.fire({
           title: "Success",
           text: "Login Successful",
