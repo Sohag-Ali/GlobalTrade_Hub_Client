@@ -5,6 +5,7 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 
 const Profile = () => {
   const { user, loading } = useContext(AuthContext);
+  console.log("User in Profile:", user);
  
 
 
@@ -38,8 +39,12 @@ const Profile = () => {
         </div>
 
         <p className="text-white mb-4">
+          Creation Time: {user?.metadata?.creationTime}
+        </p>
+        <p className="text-white mb-4">
           Last Login: {user?.metadata?.lastSignInTime}
         </p>
+        <p className="text-white font-bold mb-4">User ID: {user?.uid}</p>
         <p className="text-white font-bold mb-4">Name: {user?.displayName}</p>
         <p className="text-white font-bold mb-4">Email: {user?.email}</p>
       </div>

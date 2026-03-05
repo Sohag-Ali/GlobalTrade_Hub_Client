@@ -69,6 +69,11 @@ const NavBar = () => {
                 <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
                   <NavLink
                     to="/profile"
+                    onClick={() => {
+                      setTimeout(() => {
+                        setMobileOpen(false);
+                      }, 200);
+                    }}
                     className="block px-4 py-2 hover:bg-gray-200"
                   >
                     Profile
@@ -76,14 +81,23 @@ const NavBar = () => {
 
                   <NavLink
                     to="/update-profile"
+                    onClick={() => {
+                      setTimeout(() => {
+                        setMobileOpen(false);
+                      }, 200);
+                    }}
                     className="block px-4 py-2 hover:bg-gray-200"
                   >
                     Edit Profile
                   </NavLink>
 
-
                   <button
-                    onClick={handleLogOut}
+                    onClick={() => {
+                      handleLogOut();
+                      setTimeout(() => {
+                        setMobileOpen(false);
+                      }, 200);
+                    }}
                     className="block w-full text-left px-4 py-2 hover:bg-gray-200"
                   >
                     Logout
