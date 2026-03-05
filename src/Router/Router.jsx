@@ -8,6 +8,10 @@ import Products from '../Pages/Products';
 import Profile from '../Pages/Profile';
 import PrivateRoute from './PrivateRoute';
 import UpdateProfile from '../Pages/UpdateProfile';
+import MyImports from '../Pages/MyImports';
+import MyExports from '../Pages/MyExports';
+import AddExports from '../Pages/AddExports';
+import ProductDetails from '../Pages/ProductDetails';
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +45,30 @@ export const router = createBrowserRouter([
         element: <PrivateRoute>
           <UpdateProfile></UpdateProfile>
           </PrivateRoute>
+      },
+      {
+        path: "/myExports",
+        element: <PrivateRoute>
+          <MyExports></MyExports>
+        </PrivateRoute>
+      },
+      {
+        path: "/myImports",
+        element: <PrivateRoute>
+          <MyImports></MyImports>
+        </PrivateRoute>
+      },
+      {
+        path: "/addProduct",
+        element: <PrivateRoute>
+          <AddExports></AddExports>
+        </PrivateRoute>
+      },
+      {
+        path: "/productDetails",
+        element: <PrivateRoute>
+          <ProductDetails></ProductDetails>
+        </PrivateRoute>
       }
     ]
   },
