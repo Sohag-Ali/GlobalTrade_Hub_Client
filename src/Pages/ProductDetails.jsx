@@ -1,11 +1,13 @@
 import React, { useContext, useRef, useState } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useRevalidator } from "react-router";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import { FaBoxOpen, FaStar } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const ProductDetails = () => {
   const product = useLoaderData();
+//   const { revalidate } = useRevalidator();
+//   const [stock, setStock] = useState(availableQuantity);
   const { user } = useContext(AuthContext);
   console.log(product);
   const ModalRef = useRef(null);
@@ -25,12 +27,64 @@ const ProductDetails = () => {
     exporterEmail,
     createdAt,
   } = product;
+  const [stock, setStock] = useState(availableQuantity);
   const [quantity, setQuantity] = useState("");
 
   const handleModalOpen = () => {
     if (ModalRef.current) {
       ModalRef.current.showModal();
     }
+  };
+
+  const handleImportSubmit = async (e) => {
+    e.preventDefault();
+
+    const importData = {
+      productId: product._id,
+      productName: productName,
+      productImage: productImage,
+      price: price,
+      rating: rating,
+      originCountry: originCountry,
+
+      importerName: user?.displayName,
+      importerEmail: user?.email,
+
+      importedQuantity: parseInt(quantity),
+
+      createdAt: new Date(),
+    };
+
+   
+  fetch("http://localhost:3000/imports", {
+  method: "POST",
+  headers: { "content-type": "application/json" },
+  body: JSON.stringify(importData),
+})
+  .then((res) => res.json())
+  .then((data) => {
+    if (data.insertedId) {
+
+      fetch(`http://localhost:3000/products/${product._id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          quantity: parseInt(quantity),
+        }),
+      })
+        .then((res) => res.json())
+        .then(() => {
+
+          setStock(stock - parseInt(quantity));
+
+          ModalRef.current.close();
+          alert("Product Imported Successfully");
+
+        });
+
+    }
+  })
+  .catch((error) => console.log(error));
   };
 
   return (
@@ -93,7 +147,7 @@ const ProductDetails = () => {
               <div className="bg-white/5 p-3 rounded-lg">
                 <p className="text-gray-400">Stock</p>
                 <p className="font-bold text-green-400 flex items-center gap-2">
-                  <FaBoxOpen /> {availableQuantity}
+                  <FaBoxOpen /> {stock}
                 </p>
               </div>
 
@@ -157,57 +211,61 @@ const ProductDetails = () => {
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">Import Product</h3>
 
-          {/* User Name */}
-          <div className="mb-3">
-            <label className="text-sm font-medium">Importer Name</label>
-            <input
-              type="text"
-              value={user?.displayName}
-              readOnly
-              className="input input-bordered w-full bg-slate-800 text-white border-slate-600"
-            />
-          </div>
+          <form onSubmit={handleImportSubmit}>
+            {/* User Name */}
+            <div className="mb-3">
+              <label className="text-sm font-medium">Importer Name</label>
+              <input
+                type="text"
+                value={user?.displayName}
+                readOnly
+                className="input input-bordered w-full bg-slate-800 text-white border-slate-600"
+              />
+            </div>
 
-          {/* User Email */}
-          <div className="mb-3">
-            <label className="text-sm font-medium">Importer Email</label>
-            <input
-              type="email"
-              value={user?.email}
-              readOnly
-              className="input input-bordered w-full bg-slate-800 text-white border-slate-600"
-            />
-          </div>
+            {/* User Email */}
+            <div className="mb-3">
+              <label className="text-sm font-medium">Importer Email</label>
+              <input
+                type="email"
+                value={user?.email}
+                readOnly
+                className="input input-bordered w-full bg-slate-800 text-white border-slate-600"
+              />
+            </div>
 
-          {/* Quantity */}
-          <div className="mb-3">
-            <label className="text-sm font-medium">Import Quantity</label>
-            <input
-              type="number"
-              placeholder="Enter Import Quantity"
-              className="input input-bordered w-full"
-              onChange={(e) => setQuantity(e.target.value)}
-            />
-          </div>
+            {/* Quantity */}
+            <div className="mb-3">
+              <label className="text-sm font-medium">Import Quantity</label>
+              <input
+                type="number"
+                placeholder="Enter Import Quantity"
+                className="input input-bordered w-full"
+                onChange={(e) => setQuantity(e.target.value)}
+                required
+              />
+            </div>
 
-          {quantity > availableQuantity && (
-            <p className="text-red-500 text-sm mt-2">
-              Quantity cannot exceed available stock
-            </p>
-          )}
+            {quantity > availableQuantity && (
+              <p className="text-red-500 text-sm mt-2">
+                Quantity cannot exceed available stock
+              </p>
+            )}
 
-          <div className="modal-action">
-            <button
-              className="btn btn-success"
-              disabled={quantity > availableQuantity}
-            >
-              Submit
-            </button>
+            <div className="modal-action">
+              <button
+                type="submit"
+                className="btn btn-success"
+                disabled={quantity > availableQuantity}
+              >
+                Submit
+              </button>
 
-            <form method="dialog">
-              <button className="btn">Close</button>
-            </form>
-          </div>
+              <form method="dialog">
+                <button className="btn">Close</button>
+              </form>
+            </div>
+          </form>
         </div>
       </dialog>
     </div>

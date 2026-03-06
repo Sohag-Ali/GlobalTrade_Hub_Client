@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LatestProduct from "./LatestProduct";
 
-const latestProductPromise = fetch(
-  "http://localhost:3000/latest-products",
-).then((response) => response.json());
+// const latestProductPromise = fetch(
+//   "http://localhost:3000/latest-products",
+// ).then((response) => response.json());
 // .then(data => {
 //     console.log('Latest Product:', data);
 // })
 // .catch(error => {
 //     console.error('Error fetching latest product:', error);
 // });
+
+
 const Home = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/latest-products")
+      .then(res => res.json())
+      .then(data => setProducts(data));
+  }, []);
+
   return (
     <div>
       <div className="text-center mb-12">
@@ -20,7 +30,7 @@ const Home = () => {
         </p>
       </div>
       <LatestProduct
-        latestProductPromise={latestProductPromise}
+        products={products}
       ></LatestProduct>
     </div>
   );

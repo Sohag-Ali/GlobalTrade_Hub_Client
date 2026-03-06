@@ -1,9 +1,9 @@
 import React, { use } from 'react';
 import Product from './Product';
 
-const LatestProduct = ({ latestProductPromise}) => {
-    const products = use(latestProductPromise  );
-    console.log('Latest Product:', products);
+const LatestProduct = ({products}) => {
+    // const productl = use(products);
+    // console.log('Latest Product:', productl);
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
