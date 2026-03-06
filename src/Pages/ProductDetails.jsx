@@ -65,7 +65,7 @@ const ProductDetails = () => {
   .then((data) => {
     if (data.insertedId) {
 
-      fetch(`http://localhost:3000/products/${product._id}`, {
+      fetch(`http://localhost:3000/products/import/${product._id}`, {
         method: "PATCH",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({

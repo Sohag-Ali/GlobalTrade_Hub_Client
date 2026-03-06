@@ -1,11 +1,165 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AddExports = () => {
-    return (
-        <div>
-            <h3>Add Exports</h3>
+  const { user } = useContext(AuthContext);
+
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    const productName = form.productName.value;
+    const productImage = form.productImage.value;
+    const price = form.price.value;
+    const originCountry = form.originCountry.value;
+    const rating = form.rating.value;
+    const availableQuantity = form.availableQuantity.value;
+
+    const newProduct = {
+      productName,
+      productImage,
+      price: parseFloat(price),
+      originCountry,
+      rating: parseFloat(rating),
+      availableQuantity: parseInt(availableQuantity),
+      exporterEmail: user?.email,
+      exporterName: user?.displayName,
+      createdAt: new Date(),
+    };
+
+    fetch("http://localhost:3000/products", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newProduct),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          alert("Product Added Successfully");
+          form.reset();
+        }
+      });
+  };
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-12">
+      {/* Title */}
+      <div className="text-center mb-10">
+        <h2 className="text-4xl font-bold text-white mb-2">
+          Add Export Product
+        </h2>
+        <p className="text-gray-400">
+          List a new product for global export marketplace
+        </p>
+      </div>
+
+      {/* Form Card */}
+      <form
+        onSubmit={handleAddProduct}
+        className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-xl space-y-6"
+      >
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Product Name */}
+          <div>
+            <label className="text-sm text-gray-300 mb-1 block">
+              Product Name
+            </label>
+            <input
+              type="text"
+              name="productName"
+              placeholder="Enter product name"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Image URL */}
+          <div>
+            <label className="text-sm text-gray-300 mb-1 block">
+              Product Image URL
+            </label>
+            <input
+              type="text"
+              name="productImage"
+              placeholder="Paste image URL"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Price */}
+          <div>
+            <label className="text-sm text-gray-300 mb-1 block">
+              Price ($)
+            </label>
+            <input
+              type="number"
+              name="price"
+              placeholder="Enter price"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Country */}
+          <div>
+            <label className="text-sm text-gray-300 mb-1 block">
+              Origin Country
+            </label>
+            <input
+              type="text"
+              name="originCountry"
+              placeholder="Country of origin"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Rating */}
+          <div>
+            <label className="text-sm text-gray-300 mb-1 block">
+              Product Rating
+            </label>
+            <input
+              type="number"
+              step="0.1"
+              name="rating"
+              placeholder="Rating (1 - 5)"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+
+          {/* Quantity */}
+          <div>
+            <label className="text-sm text-gray-300 mb-1 block">
+              Available Quantity
+            </label>
+            <input
+              type="number"
+              name="availableQuantity"
+              placeholder="Enter stock quantity"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
         </div>
-    );
+
+        {/* Submit Button */}
+        <div className="pt-4">
+          <button
+            type="submit"
+            className="w-full md:w-auto px-8 py-3 rounded-xl text-lg font-semibold bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white transition-all duration-300 shadow-lg"
+          >
+            Add Export/Product
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default AddExports;
