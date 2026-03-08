@@ -44,7 +44,7 @@ const AddExports = () => {
       });
   };
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="py-12">
       {/* Title */}
       <div className="text-center mb-10">
         <h2 className="text-4xl font-bold text-white mb-2">

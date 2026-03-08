@@ -69,7 +69,7 @@ const MyExports = () => {
 
      return (
 
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className=" py-12">
 
       <h2 className="text-4xl text-white font-bold text-center mb-10">
         My Exported Products

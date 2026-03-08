@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import Container from "./Container";
 
 const NavBar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
@@ -43,7 +44,8 @@ const NavBar = () => {
   );
   return (
     <nav className="w-full fixed top-0 bg-black text-white z-50">
-      <div className="max-w-[1440px] mx-auto flex justify-between items-center px-6 py-4">
+    <Container>
+        <div className=" flex justify-between items-center  py-4">
         {/* Logo */}
         <Link to="/" className="text-xl font-bold">
           GlobalTradeHub
@@ -133,6 +135,7 @@ const NavBar = () => {
           {navLinks}
         </div>
       )}
+    </Container>
     </nav>
   );
 };

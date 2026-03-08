@@ -14,7 +14,7 @@ const Products = () => {
   }, [search]);
   return (
 
- <div className="max-w-7xl mx-auto px-4 py-16">
+ <div className="py-16">
 
       {/* Header Section */}
 

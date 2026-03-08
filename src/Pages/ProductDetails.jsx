@@ -88,7 +88,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="py-12">
       {/* MAIN PRODUCT CARD */}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-3xl shadow-xl">
