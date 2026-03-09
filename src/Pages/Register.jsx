@@ -137,7 +137,7 @@ const Register = () => {
           boxShadow: "0 4px 30px rgba(0,0,0,0.2)",
         }}
       >
-        <h2 className="text-3xl font-bold text-white text-center mb-6">
+        <h2 className="text-3xl font-bold text-base-content text-center mb-6">
           Registation Now
         </h2>
 
@@ -173,7 +173,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="mt-4 w-full py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-semibold rounded-full shadow-lg transition-all"
+            className="mt-4 w-full py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-base-content font-semibold rounded-full shadow-lg transition-all"
           >
             Register
           </button>
@@ -181,13 +181,13 @@ const Register = () => {
           <button
             onClick={handleGoogleSign}
             type="button"
-            className="mt-2 w-full py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-full shadow-lg transition-all flex items-center justify-center gap-2"
+            className="mt-2 w-full py-3 bg-base-200/40 hover:bg-base-300 text-base-content font-semibold rounded-full shadow-lg transition-all flex items-center justify-center gap-2"
           >
             <FcGoogle size={20} /> Register with Google
           </button>
         </form>
 
-        <p className="text-gray-300 text-sm mt-4 text-center">
+        <p className="text-base-content/70 text-sm mt-4 text-center">
           Already have an account?{" "}
           <Link to="/login" className="text-purple-400 hover:text-purple-600">
             Login

@@ -91,13 +91,13 @@ const MyExports = () => {
   return (
     useTitle("My Exports"),
     <div className=" py-12">
-      <h2 className="text-4xl text-white font-bold text-center mb-10">
+      <h2 className="text-4xl text-base-content font-bold text-center mb-10">
         My Exported Products
       </h2>
       <div className="flex justify-center mb-8">
         <button
           onClick={downloadCSV}
-          className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg"
+          className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-base-content rounded-lg"
         >
           Download CSV
         </button>
@@ -107,7 +107,7 @@ const MyExports = () => {
         {products.map((product) => (
           <div
             key={product._id}
-            className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl shadow-xl overflow-hidden hover:scale-[1.02] transition"
+            className="bg-base-200/40 backdrop-blur-xl border border-base-300 rounded-3xl shadow-xl overflow-hidden hover:scale-[1.02] transition"
           >
             {/* IMAGE */}
             <div className="relative h-52">
@@ -116,22 +116,22 @@ const MyExports = () => {
                 className="w-full h-full object-cover"
               />
 
-              <div className="absolute top-3 left-3 bg-yellow-400 text-black text-xs px-3 py-1 rounded-full flex items-center gap-1 font-semibold">
+              <div className="absolute top-3 left-3 bg-warning text-warning-content text-xs px-3 py-1 rounded-full flex items-center gap-1 font-semibold">
                 <FaStar /> {product.rating}
               </div>
             </div>
 
             {/* CONTENT */}
             <div className="p-5 space-y-2">
-              <h3 className="text-xl text-white font-semibold">
+              <h3 className="text-xl text-base-content font-semibold">
                 {product.productName}
               </h3>
 
-              <p className="text-gray-300">Price: ${product.price}</p>
+              <p className="text-base-content/70">Price: ${product.price}</p>
 
-              <p className="text-gray-300">Country: {product.originCountry}</p>
+              <p className="text-base-content/70">Country: {product.originCountry}</p>
 
-              <p className="text-green-400">
+              <p className="text-success">
                 Stock: {product.availableQuantity}
               </p>
 
@@ -141,14 +141,14 @@ const MyExports = () => {
                   onClick={() =>
                     document.getElementById(product._id).showModal()
                   }
-                  className="flex-1 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white flex items-center justify-center gap-2"
+                  className="flex-1 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-base-content flex items-center justify-center gap-2"
                 >
                   <FaEdit /> Update
                 </button>
 
                 <button
                   onClick={() => handleDelete(product._id)}
-                  className="px-4 rounded-lg bg-red-500 hover:bg-red-600 text-white flex items-center justify-center"
+                  className="px-4 rounded-lg bg-red-500 hover:bg-red-600 text-base-content flex items-center justify-center"
                 >
                   <FaTrash />
                 </button>

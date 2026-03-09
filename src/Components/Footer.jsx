@@ -6,22 +6,22 @@ import { MdEmail, MdLocationOn } from "react-icons/md";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0b0f19] border-t border-white/10 mt-20">
+    <footer className="bg-base-200 border-t border-base-300 mt-20">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-12">
           {/* Logo & About */}
           <div>
-            <h2 className="text-xl font-bold text-white mb-4">
+            <h2 className="text-xl font-bold text-base-content mb-4">
               GlobalTradeHub
             </h2>
 
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-base-content/70 text-sm leading-relaxed">
               GlobalTradeHub is a modern import-export platform where businesses
               connect globally to trade products securely and efficiently.
             </p>
 
             {/* Social Icons */}
-            <div className="flex gap-4 mt-4 text-gray-400">
+            <div className="flex gap-4 mt-4 text-base-content/70">
               <a className="hover:text-purple-400 transition">
                 <FaFacebookF />
               </a>
@@ -42,11 +42,11 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">
+            <h3 className="text-lg font-semibold text-base-content  mb-4">
               Quick Links
             </h3>
 
-            <ul className="space-y-2 text-gray-400">
+            <ul className="space-y-2 text-base-content/70">
               <li>
                 <Link to="/" className="hover:text-purple-400">
                   Home
@@ -75,9 +75,9 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
+            <h3 className="text-lg font-semibold text-base-content mb-4">Contact</h3>
 
-            <div className="space-y-3 text-gray-400 text-sm">
+            <div className="space-y-3 text-base-content/70 text-sm">
               <p className="flex items-center gap-2">
                 <MdEmail /> support@globaltradehub.com
               </p>
@@ -90,9 +90,9 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Subscribe</h3>
+            <h3 className="text-lg font-semibold text-base-content mb-4">Subscribe</h3>
 
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-base-content/70 text-sm mb-4">
               Get the latest export products and trade updates.
             </p>
 
@@ -100,7 +100,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Your email"
-                className="px-3 py-2 w-full rounded-l-lg bg-white/10 border border-white/20 text-white focus:outline-none"
+                className="px-3 py-2 w-full rounded-l-lg bg-base-100 border border-base-300 text-base-content focus:outline-none"
               />
 
               <button className="px-4 bg-purple-600 hover:bg-purple-700 rounded-r-lg">
@@ -112,7 +112,7 @@ const Footer = () => {
 
         {/* Bottom Copyright */}
 
-        <div className="border-t border-white/10 py-4 text-center text-gray-500 text-sm">
+        <div className="border-t border-base-300 py-4 text-center text-base-content/60 text-sm">
           © {new Date().getFullYear()} GlobalTradeHub. All Rights Reserved.
         </div>
       </Container>

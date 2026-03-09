@@ -43,10 +43,10 @@ const MyImports = () => {
 
       {/* Title */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-white mb-2">
+        <h2 className="text-4xl font-bold text-base-content mb-2">
           My Imported Products
         </h2>
-        <p className="text-gray-400">
+        <p className="text-base-content/70">
           All products you have imported from the global marketplace
         </p>
       </div>
@@ -60,7 +60,7 @@ const MyImports = () => {
 
             <div
               key={item._id}
-              className="group relative flex flex-col overflow-hidden rounded-3xl border border-white/10 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+              className="group relative flex flex-col overflow-hidden rounded-3xl border border-base-300 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
               style={{
                 background: "rgba(255,255,255,0.06)",
                 backdropFilter: "blur(18px)",
@@ -75,16 +75,16 @@ const MyImports = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-base-content/70 via-base-content/20 to-transparent"></div>
 
                 {/* Rating */}
-                <div className="absolute top-4 left-4 flex items-center gap-1 bg-yellow-400 text-black text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                <div className="absolute top-4 left-4 flex items-center gap-1 bg-yellow-400 text-warning-content text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                   <FaStar />
                   {item.rating}
                 </div>
 
                 {/* Country */}
-                <div className="absolute top-4 right-4 px-3 py-1 text-xs font-medium text-white rounded-full backdrop-blur-md bg-black/50 border border-white/30">
+                <div className="absolute top-4 right-4 px-3 py-1 text-xs font-medium text-base-content rounded-full backdrop-blur-md bg-base-200/60 border border-base-300">
                   🌍 {item.originCountry}
                 </div>
 
@@ -95,17 +95,17 @@ const MyImports = () => {
               <div className="flex flex-col flex-grow p-6">
 
                 {/* Product Name */}
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <h3 className="text-xl font-semibold text-base-content mb-3">
                   {item.productName}
                 </h3>
 
 
                 {/* Price Card */}
-                <div className="mb-4 flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                <div className="mb-4 flex items-center justify-between p-4 rounded-xl bg-base-200/40 border border-base-300 backdrop-blur-md">
 
                   <div className="flex flex-col">
-                    <span className="text-xs text-gray-400">Price</span>
-                    <span className="text-2xl font-bold text-white">
+                    <span className="text-xs text-base-content/70">Price</span>
+                    <span className="text-2xl font-bold text-base-content">
                       ${item.price}
                     </span>
                   </div>
@@ -128,14 +128,14 @@ const MyImports = () => {
 
                   <Link
                     to={`/productDetails/${item.productId}`}
-                    className="flex-1 text-center py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white transition-all duration-300"
+                    className="flex-1 text-center py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-base-content transition-all duration-300"
                   >
                     See Details
                   </Link>
 
                   <button
                     onClick={() => handleRemove(item._id)}
-                    className="flex items-center justify-center px-4 rounded-xl bg-red-500 hover:bg-red-600 text-white transition"
+                    className="flex items-center justify-center px-4 rounded-xl bg-red-500 hover:bg-red-600 text-base-content transition"
                   >
                     <FaTrashAlt />
                   </button>

@@ -49,10 +49,10 @@ const AddExports = () => {
     <div className="py-12">
       {/* Title */}
       <div className="text-center mb-10">
-        <h2 className="text-4xl font-bold text-white mb-2">
+        <h2 className="text-4xl font-bold text-base-content mb-2">
           Add Export Product
         </h2>
-        <p className="text-gray-400">
+        <p className="text-base-content/70">
           List a new product for global export marketplace
         </p>
       </div>
@@ -60,13 +60,13 @@ const AddExports = () => {
       {/* Form Card */}
       <form
         onSubmit={handleAddProduct}
-        className="bg-white/10 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-xl space-y-6"
+        className="bg-base-200/40 backdrop-blur-xl border border-base-300 rounded-3xl p-8 md:p-10 shadow-xl space-y-6"
       >
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Product Name */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">
+            <label className="text-sm text-base-content/70 mb-1 block">
               Product Name
             </label>
             <input
@@ -80,7 +80,7 @@ const AddExports = () => {
 
           {/* Image URL */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">
+            <label className="text-sm text-base-content/70 mb-1 block">
               Product Image URL
             </label>
             <input
@@ -94,7 +94,7 @@ const AddExports = () => {
 
           {/* Price */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">
+            <label className="text-sm text-base-content/70 mb-1 block">
               Price ($)
             </label>
             <input
@@ -108,7 +108,7 @@ const AddExports = () => {
 
           {/* Country */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">
+            <label className="text-sm text-base-content/70 mb-1 block">
               Origin Country
             </label>
             <input
@@ -122,7 +122,7 @@ const AddExports = () => {
 
           {/* Rating */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">
+            <label className="text-sm text-base-content/70 mb-1 block">
               Product Rating
             </label>
             <input
@@ -137,7 +137,7 @@ const AddExports = () => {
 
           {/* Quantity */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">
+            <label className="text-sm text-base-content/70 mb-1 block">
               Available Quantity
             </label>
             <input
@@ -154,7 +154,7 @@ const AddExports = () => {
         <div className="pt-4">
           <button
             type="submit"
-            className="w-full md:w-auto px-8 py-3 rounded-xl text-lg font-semibold bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white transition-all duration-300 shadow-lg"
+            className="w-full md:w-auto px-8 py-3 rounded-xl text-lg font-semibold bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-base-content transition-all duration-300 shadow-lg"
           >
             Add Export/Product
           </button>

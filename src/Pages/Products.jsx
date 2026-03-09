@@ -25,11 +25,11 @@ const Products = () => {
         {/* Title */}
 
         <div >
-          <h2 className="text-4xl font-bold text-white mb-2">
+          <h2 className="text-4xl font-bold text-base-content mb-2">
             All Products
           </h2>
 
-          <p className="text-gray-300">
+          <p className="text-base-content/70">
             Explore export products from around the world
           </p>
         </div>
@@ -42,11 +42,11 @@ const Products = () => {
           <input
             type="text"
             placeholder="Search product..."
-            className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/10 text-white border border-white/20 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full pl-10 pr-4 py-3 rounded-xl bg-base-200/40 text-base-content border border-base-300 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             onChange={(e) => setSearch(e.target.value)}
           />
 
-          <FaSearch className="absolute left-3 top-3.5 text-gray-400" />
+          <FaSearch className="absolute left-3 top-3.5 text-base-content/70" />
 
         </div>
 
@@ -65,7 +65,7 @@ const Products = () => {
             />
           ))
         ) : (
-          <p className="text-center text-gray-400 col-span-3">
+          <p className="text-center text-base-content/70 col-span-3">
             No Products Found
           </p>
         )}

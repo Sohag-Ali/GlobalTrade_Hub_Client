@@ -54,7 +54,7 @@ const NavBar = () => {
   
 };
   return (
-    <nav className="w-full fixed top-0 bg-black text-white z-50">
+    <nav className="w-full fixed top-0 bg-base-100 text-base-content border-b border-base-300 z-50">
     <Container>
         <div className=" flex justify-between items-center  py-4">
         {/* Logo */}
@@ -87,7 +87,7 @@ const NavBar = () => {
               />
 
               {mobileOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2">
+                <div className="absolute right-0 mt-2 w-40 bg-base-100 text-base-content rounded-lg shadow-lg py-2">
                   <NavLink
                     to="/profile"
                     onClick={() => {
@@ -95,7 +95,7 @@ const NavBar = () => {
                         setMobileOpen(false);
                       }, 200);
                     }}
-                    className="block px-4 py-2 hover:bg-gray-200"
+                    className="block px-4 py-2 hover:bg-base-300"
                   >
                     Profile
                   </NavLink>
@@ -107,7 +107,7 @@ const NavBar = () => {
                         setMobileOpen(false);
                       }, 200);
                     }}
-                    className="block px-4 py-2 hover:bg-gray-200"
+                    className="block px-4 py-2 hover:bg-base-300"
                   >
                     Edit Profile
                   </NavLink>
@@ -119,7 +119,7 @@ const NavBar = () => {
                         setMobileOpen(false);
                       }, 200);
                     }}
-                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                    className="block w-full text-left px-4 py-2 hover:bg-base-300"
                   >
                     Logout
                   </button>
@@ -132,7 +132,7 @@ const NavBar = () => {
                 Login
               </Link>
 
-              <Link to="/register" className="px-4 py-1 bg-purple-600 rounded">
+              <Link to="/register" className="px-4 py-1 bg-primary rounded">
                 Register
               </Link>
             </>

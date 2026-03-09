@@ -29,7 +29,7 @@ const Profile = () => {
           border: "1px solid rgba(255, 255, 255, 0.12)",
         }}
       >
-        <h2 className="text-2xl font-bold text-white text-center mb-6">
+        <h2 className="text-2xl font-bold text-base-content text-center mb-6">
           My Profile
         </h2>
         <div className="flex justify-center mb-6">
@@ -40,15 +40,15 @@ const Profile = () => {
           />
         </div>
 
-        <p className="text-white mb-4">
+        <p className="text-base-content mb-4">
           Creation Time: {user?.metadata?.creationTime}
         </p>
-        <p className="text-white mb-4">
+        <p className="text-base-content mb-4">
           Last Login: {user?.metadata?.lastSignInTime}
         </p>
-        <p className="text-white font-bold mb-4">User ID: {user?.uid}</p>
-        <p className="text-white font-bold mb-4">Name: {user?.displayName}</p>
-        <p className="text-white font-bold mb-4">Email: {user?.email}</p>
+        <p className="text-base-content font-bold mb-4">User ID: {user?.uid}</p>
+        <p className="text-base-content font-bold mb-4">Name: {user?.displayName}</p>
+        <p className="text-base-content font-bold mb-4">Email: {user?.email}</p>
       </div>
     </div>
   );

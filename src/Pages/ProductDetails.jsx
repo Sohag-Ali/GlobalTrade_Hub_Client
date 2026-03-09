@@ -94,7 +94,7 @@ const ProductDetails = () => {
       {/* MAIN PRODUCT CARD */}
      
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-3xl shadow-xl">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-base-200/40 backdrop-blur-lg border border-base-300 p-8 rounded-3xl shadow-xl">
         {/* IMAGE */}
 
         <div className="relative overflow-hidden rounded-2xl">
@@ -107,20 +107,20 @@ const ProductDetails = () => {
           {/* Top badges */}
           <div className="absolute top-4 left-4 flex items-center gap-2">
             {/* Rating */}
-            <div className="bg-yellow-400 text-black text-xs px-3 py-1 rounded-full flex items-center gap-1 font-semibold shadow-md">
+            <div className="bg-yellow-400 text-base-content text-xs px-3 py-1 rounded-full flex items-center gap-1 font-semibold shadow-md">
               <FaStar /> {rating}
             </div>
 
             {/* Sold Out */}
             {availableQuantity === 0 && (
-              <div className="bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg animate-pulse">
+              <div className="bg-gradient-to-r from-red-500 to-pink-500 text-base-content text-xs px-3 py-1 rounded-full font-semibold shadow-lg animate-pulse">
                 SOLD OUT
               </div>
             )}
           </div>
 
           {/* Country badge */}
-          <div className="absolute top-4 right-4 bg-black/60 text-white text-xs px-3 py-1 rounded-full backdrop-blur">
+          <div className="absolute top-4 right-4 bg-base-200/60 text-base-content text-xs px-3 py-1 rounded-full backdrop-blur">
             🌍 {originCountry}
           </div>
         </div>
@@ -129,11 +129,11 @@ const ProductDetails = () => {
 
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-white">
+            <h1 className="text-3xl lg:text-4xl font-bold mb-4 text-base-content">
               {productName}
             </h1>
 
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="text-base-content/70 mb-6 leading-relaxed">
               Premium export quality product sourced from trusted suppliers.
               Ideal for international importers looking for consistent supply
               and superior quality goods.
@@ -142,33 +142,33 @@ const ProductDetails = () => {
             {/* DETAILS GRID */}
 
             <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-white/5 p-3 rounded-lg">
-                <p className="text-gray-400">Price</p>
-                <p className="font-bold text-lg text-white">${price}</p>
+              <div className="bg-base-200/40  p-3 rounded-lg">
+                <p className="text-base-content/70">Price</p>
+                <p className="font-bold text-lg text-base-content">${price}</p>
               </div>
 
-              <div className="bg-white/5 p-3 rounded-lg">
-                <p className="text-gray-400">Stock</p>
+              <div className="bg-base-200/40 p-3 rounded-lg">
+                <p className="text-base-content/70">Stock</p>
                 <p className="font-bold text-green-400 flex items-center gap-2">
                   <FaBoxOpen /> {stock}
                 </p>
               </div>
 
-              <div className="bg-white/5 p-3 rounded-lg">
-                <p className="text-gray-400">Exporter</p>
-                <p className="font-semibold text-white">{exporterName}</p>
+              <div className="bg-base-200/40 p-3 rounded-lg">
+                <p className="text-base-content/70">Exporter</p>
+                <p className="font-semibold text-base-content">{exporterName}</p>
               </div>
 
-              <div className="bg-white/5 p-3 rounded-lg">
-                <p className="text-gray-400">Contact</p>
-                <p className="font-semibold text-white text-xs">
+              <div className="bg-base-200/40 p-3 rounded-lg">
+                <p className="text-base-content/70">Contact</p>
+                <p className="font-semibold text-base-content text-xs">
                   {exporterEmail}
                 </p>
               </div>
 
-              <div className="bg-white/5 p-3 rounded-lg col-span-2">
-                <p className="text-gray-400">Added On</p>
-                <p className="font-semibold text-white">
+              <div className="bg-base-200/40 p-3 rounded-lg col-span-2">
+                <p className="text-base-content/70">Added On</p>
+                <p className="font-semibold text-base-content">
                   {new Date(createdAt).toLocaleDateString()}
                 </p>
               </div>
@@ -180,10 +180,10 @@ const ProductDetails = () => {
           <button
             disabled={availableQuantity === 0}
             onClick={handleModalOpen}
-            className={`mt-6 w-full py-3 rounded-xl text-white font-semibold text-lg shadow-lg transition
+            className={`mt-6 w-full py-3 rounded-xl text-base-content font-semibold text-lg shadow-lg transition
            ${
              availableQuantity === 0
-               ? "bg-gray-500 cursor-not-allowed"
+               ? "bg-base-300 cursor-not-allowed"
                : "bg-gradient-to-r from-purple-500 to-indigo-600 hover:scale-[1.02]"
            }`}
           >
@@ -194,7 +194,7 @@ const ProductDetails = () => {
 
       {/* DESCRIPTION CARD */}
 
-      <div className="mt-12 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-lg">
+      <div className="mt-12 bg-base-200/40 backdrop-blur-lg border border-base-300  rounded-2xl p-8 shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-white">
           Product Description
         </h2>
@@ -222,7 +222,7 @@ const ProductDetails = () => {
                 type="text"
                 value={user?.displayName}
                 readOnly
-                className="input input-bordered w-full bg-slate-800 text-white border-slate-600"
+                className="input input-bordered w-full bg-base-200 text-base-content  border-base-300"
               />
             </div>
 
@@ -233,7 +233,7 @@ const ProductDetails = () => {
                 type="email"
                 value={user?.email}
                 readOnly
-                className="input input-bordered w-full bg-slate-800 text-white border-slate-600"
+                className="input input-bordered w-full bg-base-200 text-base-content  border-base-300"
               />
             </div>
 

@@ -40,27 +40,27 @@ const UpdateProfile = () => {
     useTitle("Update Profile"),
     <div className="min-h-screen flex justify-center items-center">
       <form className="space-y-4" onSubmit={handleUpdateProfile}>
-        <div className="text-white">
+        <div className="text-base-content">
           <label className="block text-sm mb-1">Name</label>
           <input
             type="text"
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-1 focus:ring-purple-400"
+            className="w-full px-4 py-2 rounded-full bg-base-200/40 border border-base-300 text-base-content placeholder-base-content/70 focus:outline-none focus:ring-1 focus:ring-purple-400"
           />
         </div>
 
-        <div className="text-white">
+        <div className="text-base-content">
           <label className="block text-sm mb-1">Photo URL</label>
           <input
             type="text"
             onChange={(e) => setPhoto(e.target.value)}
-            className="w-full px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-1 focus:ring-purple-400"
+            className="w-full px-4 py-2 rounded-full bg-base-200/40 border border-base-300 text-base-content placeholder-base-content/70 focus:outline-none focus:ring-1 focus:ring-purple-400"
           />
         </div>
 
         <button
           type="submit"
-          className="mt-6 w-full py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-semibold rounded-full shadow-lg transition-all"
+          className="mt-6 w-full py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-base-content font-semibold rounded-full shadow-lg transition-all"
         >
           Update Profile
         </button>
