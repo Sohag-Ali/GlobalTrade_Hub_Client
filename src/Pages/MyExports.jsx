@@ -104,140 +104,98 @@ const MyExports = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products.map((product) => (
-          <div
-            key={product._id}
-            className="bg-base-200/40 backdrop-blur-xl border border-base-300 rounded-3xl shadow-xl overflow-hidden hover:scale-[1.02] transition"
-          >
-            {/* IMAGE */}
-            <div className="relative h-52">
-              <img
-                src={product.productImage}
-                className="w-full h-full object-cover"
-              />
+       {products.map((product) => (
+  <div
+    key={product._id}
+    className="group relative flex flex-col overflow-hidden rounded-3xl border border-base-300 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl bg-base-200/40 backdrop-blur-xl"
+  >
 
-              <div className="absolute top-3 left-3 bg-warning text-warning-content text-xs px-3 py-1 rounded-full flex items-center gap-1 font-semibold">
-                <FaStar /> {product.rating}
-              </div>
-            </div>
+    {/* Image Section */}
+    <div className="relative h-60 overflow-hidden">
 
-            {/* CONTENT */}
-            <div className="p-5 space-y-2">
-              <h3 className="text-xl text-base-content font-semibold">
-                {product.productName}
-              </h3>
+      <img
+        src={product.productImage}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+      />
 
-              <p className="text-base-content/70">Price: ${product.price}</p>
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-base-content/60 via-base-content/20 to-transparent"></div>
 
-              <p className="text-base-content/70">Country: {product.originCountry}</p>
+      {/* Rating */}
+      <div className="absolute top-4 left-4 flex items-center gap-1 bg-warning text-warning-content text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+        <FaStar />
+        {product.rating}
+      </div>
 
-              <p className="text-success">
-                Stock: {product.availableQuantity}
-              </p>
+      {/* Country */}
+      <div className="absolute top-4 right-4 px-3 py-1 text-xs font-medium text-base-content rounded-full backdrop-blur-md bg-base-200/70 border border-base-300">
+        🌍 {product.originCountry}
+      </div>
 
-              {/* BUTTONS */}
-              <div className="flex gap-3 mt-4">
-                <button
-                  onClick={() =>
-                    document.getElementById(product._id).showModal()
-                  }
-                  className="flex-1 py-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-base-content flex items-center justify-center gap-2"
-                >
-                  <FaEdit /> Update
-                </button>
+    </div>
 
-                <button
-                  onClick={() => handleDelete(product._id)}
-                  className="px-4 rounded-lg bg-red-500 hover:bg-red-600 text-base-content flex items-center justify-center"
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            </div>
+    {/* Content */}
+    <div className="flex flex-col flex-grow p-6">
 
-            {/* UPDATE MODAL */}
-            <dialog id={product._id} className="modal">
-              <div className="modal-box max-w-2xl">
-                <h3 className="text-xl font-bold mb-5">
-                  Update Export Product
-                </h3>
+      {/* Title */}
+      <h3 className="text-xl font-semibold text-base-content mb-3 group-hover:text-primary transition">
+        {product.productName}
+      </h3>
 
-                <form onSubmit={(e) => handleUpdate(e, product._id)}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Product Name */}
-                    <input
-                      name="productName"
-                      defaultValue={product.productName}
-                      placeholder="Product Name"
-                      className="input input-bordered w-full"
-                      required
-                    />
+      {/* Quantity */}
+      <div className="flex items-center justify-between mb-4">
 
-                    {/* Product Image */}
-                    <input
-                      name="productImage"
-                      defaultValue={product.productImage}
-                      placeholder="Product Image URL"
-                      className="input input-bordered w-full"
-                      required
-                    />
+        <div className="flex items-center gap-2 text-sm text-base-content/80">
+          Stock
+        </div>
 
-                    {/* Price */}
-                    <input
-                      name="price"
-                      type="number"
-                      defaultValue={product.price}
-                      placeholder="Price"
-                      className="input input-bordered w-full"
-                      required
-                    />
+        <span className="px-3 py-1 text-sm font-semibold rounded-full bg-primary/20 text-primary border border-primary/30">
+          {product.availableQuantity}
+        </span>
 
-                    {/* Origin Country */}
-                    <input
-                      name="originCountry"
-                      defaultValue={product.originCountry}
-                      placeholder="Origin Country"
-                      className="input input-bordered w-full"
-                      required
-                    />
+      </div>
 
-                    {/* Rating */}
-                    <input
-                      name="rating"
-                      type="number"
-                      step="0.1"
-                      defaultValue={product.rating}
-                      placeholder="Rating"
-                      className="input input-bordered w-full"
-                      required
-                    />
+      {/* Price Card */}
+      <div className="mb-5 flex items-center justify-between p-4 rounded-xl bg-base-200/40 border border-base-300 backdrop-blur-md">
 
-                    {/* Quantity */}
-                    <input
-                      name="availableQuantity"
-                      type="number"
-                      defaultValue={product.availableQuantity}
-                      placeholder="Available Quantity"
-                      className="input input-bordered w-full"
-                      required
-                    />
-                  </div>
+        <div className="flex flex-col">
+          <span className="text-xs text-base-content/70">Price</span>
+          <span className="text-3xl font-bold text-base-content">
+            ${product.price}
+          </span>
+        </div>
 
-                  {/* Buttons */}
-                  <div className="flex justify-end gap-3 mt-6">
-                    <button type="submit" className="btn btn-primary">
-                      Update
-                    </button>
+        <span className="text-sm font-medium text-success bg-success/20 border border-success/30 px-3 py-1 rounded-full">
+          Export
+        </span>
 
-                    <form method="dialog">
-                      <button className="btn btn-outline">Cancel</button>
-                    </form>
-                  </div>
-                </form>
-              </div>
-            </dialog>
-          </div>
-        ))}
+      </div>
+
+      {/* Buttons */}
+      <div className="flex gap-3 mt-auto">
+
+        <button
+          onClick={() =>
+            document.getElementById(product._id).showModal()
+          }
+          className="flex-1 py-2 rounded-xl bg-primary text-primary-content hover:bg-primary/90 flex items-center justify-center gap-2"
+        >
+          <FaEdit /> Update
+        </button>
+
+        <button
+          onClick={() => handleDelete(product._id)}
+          className="px-4 rounded-xl bg-error text-error-content hover:bg-error/90 flex items-center justify-center"
+        >
+          <FaTrash />
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+))}
       </div>
     </div>
   );
