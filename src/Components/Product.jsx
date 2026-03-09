@@ -90,7 +90,7 @@ bg-success/20 px-3 py-1 rounded-full">
   {/* Button */}
   <Link
     to={`/productDetails/${_id}`}
-    className="w-full text-center py-3 text-lg font-semibold rounded-xl bg-gradient-to-r from-primary to-secondary hover:from-primary hover:to-secondary text-base-content transition-all duration-300 shadow-lg hover:shadow-primary/30"
+    className="flex-1 text-center py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-base-content transition-all duration-300"
   >
     View Details
   </Link>

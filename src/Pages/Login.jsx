@@ -1,15 +1,14 @@
-import React, { use, useState } from 'react';
-import { FcGoogle } from 'react-icons/fc';
-import { Link, useLocation, useNavigate } from 'react-router';
-import Swal from 'sweetalert2';
-import { AuthContext } from '../Provider/AuthProvider';
-import useTitle from '../Hooks/useTitle';
+import React, { use, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { Link, useLocation, useNavigate } from "react-router";
+import Swal from "sweetalert2";
+import { AuthContext } from "../Provider/AuthProvider";
+import useTitle from "../Hooks/useTitle";
 
 const Login = () => {
-
   const location = useLocation();
   const navigate = useNavigate();
-  const { googleSignIn, login } = use(AuthContext);
+  const { googleSignIn, login, resetPassword } = use(AuthContext);
   const [success, setSuccess] = useState(null);
   const handleLogin = (e) => {
     e.preventDefault();
@@ -40,6 +39,33 @@ const Login = () => {
         });
       });
   };
+
+  const handleForgotPassword = () => {
+    const email = document.querySelector("input[name='email']").value;
+
+    if (!email) {
+      Swal.fire({
+        icon: "warning",
+        text: "Please enter your email first",
+      });
+      return;
+    }
+
+    resetPassword(email)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          text: "Password reset email sent!",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          text: error.message,
+        });
+      });
+  };
+
   const handleGoogleSign = () => {
     googleSignIn()
       .then((result) => {
@@ -55,11 +81,11 @@ const Login = () => {
           },
           body: JSON.stringify(userInfo),
         })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("User created:", data);
-        });
-        
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("User created:", data);
+          });
+
         Swal.fire({
           title: "Success",
           text: "Login Successful",
@@ -78,67 +104,75 @@ const Login = () => {
   const inputClasses =
     "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
 
-  return (
-    useTitle("Login"),
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div
-        className="w-full max-w-md p-8 rounded-2xl shadow-xl relative backdrop-blur-lg border border-white/20"
-        style={{
-          background: "rgba(255, 255, 255, 0.08)",
-          WebkitBackdropFilter: "blur(14px)",
-          backdropFilter: "blur(14px)",
-          boxShadow: "0 4px 30px rgba(0,0,0,0.2)",
-        }}
-      >
-        <h2 className="text-3xl font-bold text-white text-center mb-6">
-          Login
-        </h2>
+ useTitle("Login");
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className={inputClasses}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className={inputClasses}
-            required
-          />
-          <p className="text-green-500 text-center">{success}</p>
-          {/* Register Button */}
-          <button
-            type="submit"
-            className="mt-4 w-full py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-semibold rounded-full shadow-lg transition-all flex items-center justify-center gap-2"
-          >
-            Login
-          </button>
+return (
+  <div className="min-h-screen flex items-center justify-center px-4 bg-base-200">
+    <div className="w-full max-w-md p-8 rounded-2xl shadow-xl border border-base-300 bg-base-100">
 
-          {/* Google Register */}
-          <button
-            onClick={handleGoogleSign}
-            type="button"
-            className="mt-2 w-full py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-full shadow-lg transition-all flex items-center justify-center gap-2"
-          >
-            <FcGoogle size={20} /> Login with Google
-          </button>
-        </form>
+      <h2 className="text-3xl font-bold text-base-content text-center mb-6">
+        Login
+      </h2>
 
-        <p className="text-gray-300 text-sm mt-4 text-center">
-          Don't have an account?{" "}
-          <Link
-            to="/register"
-            className="text-purple-400 hover:text-purple-600"
-          >
-            Register
-          </Link>
+      <form onSubmit={handleLogin} className="flex flex-col gap-4">
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="w-full p-3 rounded-lg border border-base-300 bg-base-200 text-base-content focus:outline-none focus:ring-2 focus:ring-primary"
+          required
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          className="w-full p-3 rounded-lg border border-base-300 bg-base-200 text-base-content focus:outline-none focus:ring-2 focus:ring-primary"
+          required
+        />
+
+        <p className="text-green-500 text-center">{success}</p>
+
+        {/* Forgot Password */}
+        <p
+          onClick={handleForgotPassword}
+          className="text-sm text-right text-primary cursor-pointer hover:underline"
+        >
+          Forgot Password?
         </p>
-      </div>
+
+        {/* Login Button */}
+        <button
+          type="submit"
+          className="mt-2 w-full py-3 bg-primary hover:bg-primary-focus text-white font-semibold rounded-lg transition-all"
+        >
+          Login
+        </button>
+
+        {/* Google Login */}
+        <button
+          onClick={handleGoogleSign}
+          type="button"
+          className="mt-2 w-full py-3 border border-base-300 bg-base-200 hover:bg-base-300 text-base-content font-semibold rounded-lg transition-all flex items-center justify-center gap-2"
+        >
+          <FcGoogle size={20} /> Login with Google
+        </button>
+
+      </form>
+
+      <p className="text-base-content/70 text-sm mt-6 text-center">
+        Don't have an account?{" "}
+        <Link
+          to="/register"
+          className="text-primary hover:underline"
+        >
+          Register
+        </Link>
+      </p>
+
     </div>
-  );
+  </div>
+);
 };
 export default Login;
