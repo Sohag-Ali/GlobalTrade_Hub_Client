@@ -3,6 +3,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../Provider/AuthProvider';
+import useTitle from '../Hooks/useTitle';
 
 const Login = () => {
 
@@ -78,6 +79,7 @@ const Login = () => {
     "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
 
   return (
+    useTitle("Login"),
     <div className="min-h-screen flex items-center justify-center px-4">
       <div
         className="w-full max-w-md p-8 rounded-2xl shadow-xl relative backdrop-blur-lg border border-white/20"

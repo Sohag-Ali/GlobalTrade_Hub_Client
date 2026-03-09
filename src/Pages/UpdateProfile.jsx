@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import useTitle from "../Hooks/useTitle";
 
 const UpdateProfile = () => {
   const { user, updateUser } = useContext(AuthContext);
@@ -36,6 +37,7 @@ const UpdateProfile = () => {
     }
   };
   return (
+    useTitle("Update Profile"),
     <div className="min-h-screen flex justify-center items-center">
       <form className="space-y-4" onSubmit={handleUpdateProfile}>
         <div className="text-white">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import LatestProduct from "./LatestProduct";
+import useTitle from "../Hooks/useTitle";
 
 // const latestProductPromise = fetch(
 //   "http://localhost:3000/latest-products",
@@ -13,6 +14,8 @@ import LatestProduct from "./LatestProduct";
 
 
 const Home = () => {
+
+  useTitle("Home");
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

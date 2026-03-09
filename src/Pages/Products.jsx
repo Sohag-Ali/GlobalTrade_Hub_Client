@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import { FaSearch } from "react-icons/fa";
 import Product from "../Components/Product";
+import useTitle from "../Hooks/useTitle";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,6 +14,7 @@ const Products = () => {
       .then((data) => setProducts(data));
   }, [search]);
   return (
+    useTitle("Products"),
 
  <div className="py-16">
 

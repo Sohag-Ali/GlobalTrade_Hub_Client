@@ -3,6 +3,7 @@ import { useLoaderData, useRevalidator } from "react-router";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import { FaBoxOpen, FaStar } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
+import useTitle from "../Hooks/useTitle";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -88,8 +89,10 @@ const ProductDetails = () => {
   };
 
   return (
+     useTitle(productName),
     <div className="py-12">
       {/* MAIN PRODUCT CARD */}
+     
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-3xl shadow-xl">
         {/* IMAGE */}

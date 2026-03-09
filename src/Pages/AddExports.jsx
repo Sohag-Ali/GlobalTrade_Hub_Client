@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import useTitle from "../Hooks/useTitle";
 
 const AddExports = () => {
   const { user } = useContext(AuthContext);
@@ -44,6 +45,7 @@ const AddExports = () => {
       });
   };
   return (
+    useTitle("Add Export"),
     <div className="py-12">
       {/* Title */}
       <div className="text-center mb-10">

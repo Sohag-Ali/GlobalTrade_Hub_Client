@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import useTitle from "../Hooks/useTitle";
 
 const Profile = () => {
   const { user, loading } = useContext(AuthContext);
@@ -18,6 +19,7 @@ const Profile = () => {
     );
   }
   return (
+    useTitle("Profile"),
     <div className="min-h-screen flex items-center justify-center px-4">
       <div
         className="w-full max-w-sm p-8 rounded-3xl shadow-lg"

@@ -42,6 +42,17 @@ const NavBar = () => {
       )}
     </>
   );
+
+  const toggleTheme = () => {
+  const html = document.documentElement;
+
+  if (html.getAttribute("data-theme") === "dark") {
+    html.setAttribute("data-theme", "light");
+  } else {
+    html.setAttribute("data-theme", "dark");
+  }
+  
+};
   return (
     <nav className="w-full fixed top-0 bg-black text-white z-50">
     <Container>
@@ -56,6 +67,14 @@ const NavBar = () => {
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
+
+          <button 
+  onClick={toggleTheme} 
+  className="btn btn-ghost"
+>
+  🌙
+</button>
+
           {loading ? (
             <span className="loading loading-spinner"></span>
           ) : user ? (

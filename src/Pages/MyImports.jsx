@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../Provider/AuthProvider';
 import { FaStar, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router';
+import useTitle from '../Hooks/useTitle';
 
 const MyImports = () => {
 
@@ -36,6 +37,7 @@ const MyImports = () => {
   };
 
     return (
+      useTitle("My Imports"),
 
     <div className="py-12">
 
