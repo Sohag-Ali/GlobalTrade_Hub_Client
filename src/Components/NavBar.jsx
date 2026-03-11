@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import Swal from "sweetalert2";
@@ -9,17 +9,37 @@ import { FaMoon, FaSun } from "react-icons/fa";
 const NavBar = () => {
   const { user, logOut, loading } = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-
+  // Apply theme on initial load
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setProfileOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Toggle theme and save preference
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
+
+  // Handle user logout
   const handleLogOut = () => {
     logOut().then(() => {
       Swal.fire({
@@ -30,10 +50,12 @@ const NavBar = () => {
     });
   };
 
+  // Define navigation links
   const navLinks = (
     <>
       <NavLink
         to="/"
+        onClick={() => setMobileOpen(false)}
         className={({ isActive }) =>
           isActive
             ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
@@ -45,6 +67,7 @@ const NavBar = () => {
 
       <NavLink
         to="/products"
+        onClick={() => setMobileOpen(false)}
         className={({ isActive }) =>
           isActive
             ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
@@ -58,6 +81,7 @@ const NavBar = () => {
         <>
           <NavLink
             to="/myExports"
+            onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
               isActive
                 ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
@@ -68,6 +92,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink
             to="/myImports"
+            onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
               isActive
                 ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
@@ -78,6 +103,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink
             to="/addProduct"
+            onClick={() => setMobileOpen(false)}
             className={({ isActive }) =>
               isActive
                 ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
@@ -124,21 +150,21 @@ const NavBar = () => {
             {loading ? (
               <span className="loading loading-spinner"></span>
             ) : user ? (
-              <div className="relative">
+              <div ref={dropdownRef} className="relative">
                 <img
-                  onClick={() => setMobileOpen(!mobileOpen)}
+                  onClick={() => setProfileOpen(!profileOpen)}
                   className="w-10 h-10 rounded-full cursor-pointer"
                   src={user?.photoURL || "https://i.ibb.co/4pDNDk1/avatar.png"}
                   alt="user"
                 />
 
-                {mobileOpen && (
+                {profileOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-base-100 text-base-content rounded-lg shadow-lg py-2">
                     <NavLink
                       to="/profile"
                       onClick={() => {
                         setTimeout(() => {
-                          setMobileOpen(false);
+                          setProfileOpen(false);
                         }, 200);
                       }}
                       className="block px-4 py-2 hover:bg-base-300"
@@ -150,12 +176,34 @@ const NavBar = () => {
                       to="/update-profile"
                       onClick={() => {
                         setTimeout(() => {
-                          setMobileOpen(false);
+                          setProfileOpen(false);
                         }, 200);
                       }}
                       className="block px-4 py-2 hover:bg-base-300"
                     >
                       Edit Profile
+                    </NavLink>
+                    <NavLink
+                      to="/myImports"
+                      onClick={() => {
+                        setTimeout(() => {
+                          setProfileOpen(false);
+                        }, 200);
+                      }}
+                      className="block px-4 py-2 hover:bg-base-300"
+                    >
+                      My Import
+                    </NavLink>
+                    <NavLink
+                      to="/myExports"
+                      onClick={() => {
+                        setTimeout(() => {
+                          setProfileOpen(false);
+                        }, 200);
+                      }}
+                      className="block px-4 py-2 hover:bg-base-300"
+                    >
+                      My Exports
                     </NavLink>
 
                     <button
