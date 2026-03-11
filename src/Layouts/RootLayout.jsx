@@ -5,6 +5,9 @@ import Container from '../Components/Container';
 import Footer from '../Components/Footer';
 
 import HeroBanner from '../Components/HeroBanner';
+import Testimonials from '../Components/Testimonials';
+import Sponsors from '../Components/Sponsors';
+import ChoseUs from '../Components/ChoseUs';
 
 const RootLayout = () => {
     const location = useLocation();
@@ -21,7 +24,16 @@ const RootLayout = () => {
           <Outlet />
         </Container>
       </main>
-      <Footer />   
+      {
+                location.pathname === '/' && <> 
+                <ChoseUs></ChoseUs>
+                <Testimonials></Testimonials>
+                <Sponsors></Sponsors>
+                </> 
+             }
+    <footer>
+        <Footer />
+      </footer>   
         </div>
     );
 };
