@@ -3,6 +3,8 @@ import { AuthContext } from '../Provider/AuthProvider';
 import { FaStar, FaTrashAlt } from 'react-icons/fa';
 import { Link } from 'react-router';
 import useTitle from '../Hooks/useTitle';
+import notFoungImg from "../assets/not found.jpeg";
+import Swal from 'sweetalert2';
 
 const MyImports = () => {
 
@@ -17,24 +19,48 @@ const MyImports = () => {
 
   }, [user]);
 
-  const handleRemove = (id) => {
+ const handleRemove = (id) => {
 
-    fetch(`http://localhost:3000/imports/${id}`, {
-      method: "DELETE",
-    })
-      .then(res => res.json())
-      .then(data => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This imported product will be removed!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#ef4444",
+    cancelButtonColor: "#6b7280",
+    confirmButtonText: "Yes, Remove",
+  }).then((result) => {
 
-        if (data.deletedCount > 0) {
+    if (result.isConfirmed) {
 
-          const remaining = imports.filter(item => item._id !== id);
-          setImports(remaining);
+      fetch(`http://localhost:3000/imports/${id}`, {
+        method: "DELETE",
+      })
+        .then(res => res.json())
+        .then(data => {
 
-        }
+          if (data.deletedCount > 0) {
 
-      });
+            const remaining = imports.filter(item => item._id !== id);
+            setImports(remaining);
 
-  };
+            Swal.fire({
+              icon: "success",
+              title: "Removed!",
+              text: "Product removed from your imports.",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+
+          }
+
+        });
+
+    }
+
+  });
+
+};
 
     return (
       useTitle("My Imports"),
@@ -56,7 +82,36 @@ const MyImports = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
         {
-          imports.map(item => (
+  imports.length === 0 ? (
+
+    <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
+      
+      <img
+        src={notFoungImg}
+        className="w-40 opacity-80 mb-6"
+        alt="No imports"
+      />
+
+      <h2 className="text-2xl font-bold text-base-content mb-2">
+        No Imported Products Found
+      </h2>
+
+      <p className="text-base-content/70 mb-6">
+        You haven't imported any products yet.
+      </p>
+
+      <Link
+        to="/allProducts"
+        className="px-6 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold"
+      >
+        Browse Products
+      </Link>
+
+    </div>
+
+  ) : (
+
+    imports.map(item => (
 
             <div
               key={item._id}
@@ -147,7 +202,10 @@ const MyImports = () => {
             </div>
 
           ))
-        }
+
+  )
+}
+
 
       </div>
 

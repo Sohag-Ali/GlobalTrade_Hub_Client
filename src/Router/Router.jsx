@@ -12,6 +12,7 @@ import MyImports from '../Pages/MyImports';
 import MyExports from '../Pages/MyExports';
 import AddExports from '../Pages/AddExports';
 import ProductDetails from '../Pages/ProductDetails';
+import Eorror from '../Pages/Eorror';
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
         loader: ({ params }) => fetch(`http://localhost:3000/products/${params.id}`),
         Component: ProductDetails,
        
+      },
+      {
+        path: "*",
+        element: <Eorror></Eorror>
       }
     ]
   },

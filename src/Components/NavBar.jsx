@@ -32,22 +32,58 @@ const NavBar = () => {
 
   const navLinks = (
     <>
-      <NavLink to="/" className="hover:text-purple-400">
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
+            : "hover:text-purple-400"
+        }
+      >
         Home
       </NavLink>
-      <NavLink to="/products" className="hover:text-purple-400">
+
+      <NavLink
+        to="/products"
+        className={({ isActive }) =>
+          isActive
+            ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
+            : "hover:text-purple-400"
+        }
+      >
         All Products
       </NavLink>
 
       {user && (
         <>
-          <NavLink to="/myExports" className="hover:text-purple-400">
+          <NavLink
+            to="/myExports"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
+                : "hover:text-purple-400"
+            }
+          >
             My Exports
           </NavLink>
-          <NavLink to="/myImports" className="hover:text-purple-400">
+          <NavLink
+            to="/myImports"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
+                : "hover:text-purple-400"
+            }
+          >
             My Imports
           </NavLink>
-          <NavLink to="/addProduct" className="hover:text-purple-400">
+          <NavLink
+            to="/addProduct"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-500 font-semibold border-b-2 border-purple-500 pb-1"
+                : "hover:text-purple-400"
+            }
+          >
             Add Export
           </NavLink>
         </>
@@ -60,8 +96,17 @@ const NavBar = () => {
       <Container>
         <div className=" flex justify-between items-center  py-4">
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold">
-            GlobalTradeHub
+          <Link
+            to="/"
+            className="flex items-center gap-1 text-2xl font-extrabold"
+          >
+            {/* Logo Icon */}
+            <span className=" text-white px-1 py-1 rounded-lg shadow">🌍</span>
+
+            {/* Logo Text */}
+            <span className="bg-gradient-to-r from-purple-500 to-indigo-600 bg-clip-text text-transparent">
+              GlobalTradeHub
+            </span>
           </Link>
 
           {/* Desktop Menu */}

@@ -4,6 +4,7 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 import { FaBoxOpen, FaStar } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -79,7 +80,12 @@ const ProductDetails = () => {
           setStock(stock - parseInt(quantity));
 
           ModalRef.current.close();
-          alert("Product Imported Successfully");
+          Swal.fire({
+  title: "Import Successful!",
+  text: "Product Imported Successfully",
+  icon: "success",
+  confirmButtonText: "OK",
+});
 
         });
 
@@ -256,13 +262,13 @@ const ProductDetails = () => {
             )}
 
             <div className="modal-action">
-              <button
-                type="submit"
-                className="btn btn-success"
-                disabled={quantity > availableQuantity}
-              >
-                Submit
-              </button>
+             <button
+  type="submit"
+  disabled={quantity > availableQuantity}
+  className="btn bg-gradient-to-r from-purple-500 to-indigo-600 text-base-content border-none hover:from-purple-600 hover:to-indigo-700"
+>
+  Submit
+</button>
 
               <form method="dialog">
                 <button className="btn">Close</button>

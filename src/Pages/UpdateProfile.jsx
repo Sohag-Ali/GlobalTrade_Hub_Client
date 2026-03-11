@@ -38,35 +38,69 @@ const UpdateProfile = () => {
   };
   return (
     useTitle("Update Profile"),
-    <div className="min-h-screen flex justify-center items-center">
-      <form className="space-y-4" onSubmit={handleUpdateProfile}>
-        <div className="text-base-content">
-          <label className="block text-sm mb-1">Name</label>
-          <input
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 rounded-full bg-base-200/40 border border-base-300 text-base-content placeholder-base-content/70 focus:outline-none focus:ring-1 focus:ring-purple-400"
-          />
+
+    <div className="min-h-screen flex items-center justify-center px-4">
+
+      <div className="w-full max-w-md">
+
+        {/* Card */}
+        <div className="p-8 rounded-3xl border border-base-300 shadow-xl backdrop-blur-xl bg-base-200/40">
+
+          {/* Title */}
+          <h2 className="text-3xl font-bold text-center text-base-content mb-6">
+            Update Profile
+          </h2>
+
+          {/* Avatar Preview */}
+          <div className="flex justify-center mb-6">
+            <img
+              src={photo || "https://i.ibb.co/2kRZC8K/default-avatar.png"}
+              className="w-24 h-24 rounded-full object-cover border-4 border-purple-500 shadow-lg"
+            />
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleUpdateProfile} className="space-y-4">
+
+            {/* Name */}
+            <div>
+              <label className="text-sm text-base-content/70">Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                className="input input-bordered w-full bg-base-200/50 border-base-300 focus:border-purple-500"
+              />
+            </div>
+
+            {/* Photo */}
+            <div>
+              <label className="text-sm text-base-content/70">Photo URL</label>
+              <input
+                type="text"
+                value={photo}
+                onChange={(e) => setPhoto(e.target.value)}
+                placeholder="Paste image URL"
+                className="input input-bordered w-full bg-base-200/50 border-base-300 focus:border-purple-500"
+              />
+            </div>
+
+            {/* Button */}
+            <button
+              type="submit"
+              className="w-full mt-4 py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 transition-all shadow-lg"
+            >
+              Update Profile
+            </button>
+
+          </form>
+
         </div>
 
-        <div className="text-base-content">
-          <label className="block text-sm mb-1">Photo URL</label>
-          <input
-            type="text"
-            onChange={(e) => setPhoto(e.target.value)}
-            className="w-full px-4 py-2 rounded-full bg-base-200/40 border border-base-300 text-base-content placeholder-base-content/70 focus:outline-none focus:ring-1 focus:ring-purple-400"
-          />
-        </div>
+      </div>
 
-        <button
-          type="submit"
-          className="mt-6 w-full py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-base-content font-semibold rounded-full shadow-lg transition-all"
-        >
-          Update Profile
-        </button>
-      </form>
     </div>
   );
 };
-
 export default UpdateProfile;

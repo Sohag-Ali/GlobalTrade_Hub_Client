@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
+import Swal from "sweetalert2";
 
 const AddExports = () => {
   const { user } = useContext(AuthContext);
@@ -39,7 +40,13 @@ const AddExports = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          alert("Product Added Successfully");
+          Swal.fire({
+    title: "Success!",
+    text: "Product Added Successfully",
+    icon: "success",
+    confirmButtonText: "OK",
+  });
+
           form.reset();
         }
       });

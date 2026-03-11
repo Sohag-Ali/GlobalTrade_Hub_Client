@@ -65,9 +65,30 @@ const Products = () => {
             />
           ))
         ) : (
-          <p className="text-center text-base-content/70 col-span-3">
-            No Products Found
-          </p>
+          <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
+
+  <img
+    src="https://cdn-icons-png.flaticon.com/512/6134/6134065.png"
+    alt="No product"
+    className="w-36 mb-6 opacity-80"
+  />
+
+  <h3 className="text-2xl font-bold text-base-content mb-2">
+    No Products Found
+  </h3>
+
+  <p className="text-base-content/70 mb-6">
+    We couldn't find any products matching your search.
+  </p>
+
+  <button
+    onClick={() => setSearch("")}
+    className="px-6 py-2 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold hover:opacity-90 transition"
+  >
+    Reset Search
+  </button>
+
+</div>
         )}
 
       </div>
