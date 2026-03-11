@@ -79,7 +79,7 @@ const Footer = () => {
 
             <div className="space-y-3 text-base-content/70 text-sm">
               <p className="flex items-center gap-2">
-                <MdEmail /> support@globaltradehub.com
+                <MdEmail /> sohag2879@gmail.com
               </p>
 
               <p className="flex items-center gap-2">
