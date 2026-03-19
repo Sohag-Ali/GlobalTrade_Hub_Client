@@ -5,6 +5,7 @@ import { FaBoxOpen, FaStar } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -39,60 +40,107 @@ const ProductDetails = () => {
   };
 
   const handleImportSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const importData = {
-      productId: product._id,
-      productName: productName,
-      productImage: productImage,
-      price: price,
-      rating: rating,
-      originCountry: originCountry,
+  const importData = {
+    productId: product._id,
+    productName: productName,
+    productImage: productImage,
+    price: price,
+    rating: rating,
+    originCountry: originCountry,
 
-      importerName: user?.displayName,
-      importerEmail: user?.email,
+    importerName: user?.displayName,
+    importerEmail: user?.email,
 
-      importedQuantity: parseInt(quantity),
+    importedQuantity: parseInt(quantity),
+    createdAt: new Date(),
+  };
 
-      createdAt: new Date(),
-    };
+  try {
+    const res = await axios.post("http://localhost:3000/imports", importData);
+
+    if (res.data.insertedId) {
+
+      await axios.patch(
+        `http://localhost:3000/products/import/${product._id}`,
+        {
+          quantity: parseInt(quantity),
+        }
+      );
+
+      setStock(stock - parseInt(quantity));
+
+      ModalRef.current.close();
+
+      Swal.fire({
+        title: "Import Successful!",
+        text: "Product Imported Successfully",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//   const handleImportSubmit = async (e) => {
+//     e.preventDefault();
+
+//     const importData = {
+//       productId: product._id,
+//       productName: productName,
+//       productImage: productImage,
+//       price: price,
+//       rating: rating,
+//       originCountry: originCountry,
+
+//       importerName: user?.displayName,
+//       importerEmail: user?.email,
+
+//       importedQuantity: parseInt(quantity),
+
+//       createdAt: new Date(),
+//     };
 
    
-  fetch("http://localhost:3000/imports", {
-  method: "POST",
-  headers: { "content-type": "application/json" },
-  body: JSON.stringify(importData),
-})
-  .then((res) => res.json())
-  .then((data) => {
-    if (data.insertedId) {
+//   fetch("http://localhost:3000/imports", {
+//   method: "POST",
+//   headers: { "content-type": "application/json" },
+//   body: JSON.stringify(importData),
+// })
+//   .then((res) => res.json())
+//   .then((data) => {
+//     if (data.insertedId) {
 
-      fetch(`http://localhost:3000/products/import/${product._id}`, {
-        method: "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          quantity: parseInt(quantity),
-        }),
-      })
-        .then((res) => res.json())
-        .then(() => {
+//       fetch(`http://localhost:3000/products/import/${product._id}`, {
+//         method: "PATCH",
+//         headers: { "content-type": "application/json" },
+//         body: JSON.stringify({
+//           quantity: parseInt(quantity),
+//         }),
+//       })
+//         .then((res) => res.json())
+//         .then(() => {
 
-          setStock(stock - parseInt(quantity));
+//           setStock(stock - parseInt(quantity));
 
-          ModalRef.current.close();
-          Swal.fire({
-  title: "Import Successful!",
-  text: "Product Imported Successfully",
-  icon: "success",
-  confirmButtonText: "OK",
-});
+//           ModalRef.current.close();
+//           Swal.fire({
+//   title: "Import Successful!",
+//   text: "Product Imported Successfully",
+//   icon: "success",
+//   confirmButtonText: "OK",
+// });
 
-        });
+//         });
 
-    }
-  })
-  .catch((error) => console.log(error));
-  };
+//     }
+//   })
+//   .catch((error) => console.log(error));
+//   };
 
   return (
      useTitle(productName),

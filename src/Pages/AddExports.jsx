@@ -6,51 +6,52 @@ import Swal from "sweetalert2";
 const AddExports = () => {
   const { user } = useContext(AuthContext);
 
-  const handleAddProduct = (e) => {
-    e.preventDefault();
+ const handleAddProduct = async (e) => {
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const productName = form.productName.value;
-    const productImage = form.productImage.value;
-    const price = form.price.value;
-    const originCountry = form.originCountry.value;
-    const rating = form.rating.value;
-    const availableQuantity = form.availableQuantity.value;
+  const productName = form.productName.value;
+  const productImage = form.productImage.value;
+  const price = form.price.value;
+  const originCountry = form.originCountry.value;
+  const rating = form.rating.value;
+  const availableQuantity = form.availableQuantity.value;
 
-    const newProduct = {
-      productName,
-      productImage,
-      price: parseFloat(price),
-      originCountry,
-      rating: parseFloat(rating),
-      availableQuantity: parseInt(availableQuantity),
-      exporterEmail: user?.email,
-      exporterName: user?.displayName,
-      createdAt: new Date(),
-    };
-
-    fetch("http://localhost:3000/products", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-    title: "Success!",
-    text: "Product Added Successfully",
-    icon: "success",
-    confirmButtonText: "OK",
-  });
-
-          form.reset();
-        }
-      });
+  const newProduct = {
+    productName,
+    productImage,
+    price: parseFloat(price),
+    originCountry,
+    rating: parseFloat(rating),
+    availableQuantity: parseInt(availableQuantity),
+    exporterEmail: user?.email,
+    exporterName: user?.displayName,
+    createdAt: new Date(),
   };
+
+  try {
+    const res = await axios.post(
+      "http://localhost:3000/products",
+      newProduct
+    );
+
+    if (res.data.insertedId) {
+      Swal.fire({
+        title: "Success!",
+        text: "Product Added Successfully",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+
+      form.reset();
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   return (
     useTitle("Add Export"),
     <div className="py-12">
