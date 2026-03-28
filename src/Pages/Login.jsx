@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
+import axios from "axios";
 
 const Login = () => {
   const location = useLocation();
@@ -66,41 +67,40 @@ const Login = () => {
       });
   };
 
-  const handleGoogleSign = () => {
-    googleSignIn()
-      .then((result) => {
-        const userInfo = {
-          name: result.user.displayName,
-          email: result.user.email,
-          photo: result.user.photoURL,
-        };
-        fetch("http://localhost:3000/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log("User created:", data);
-          });
+const handleGoogleSign = async () => {
+  try {
+    const result = await googleSignIn();
 
-        Swal.fire({
-          title: "Success",
-          text: "Login Successful",
-          icon: "success",
-          background: "rgba(255,255,255,0.08)",
-          color: "white",
-          backdrop: "rgba(0,0,0,0.3)",
-        });
-        // navigate("/");
-        navigate(`${location.state ? location.state : "/"}`);
-      })
-      .catch((error) => {
-        console.log("error found from google Sign In", error);
-      });
-  };
+    const userInfo = {
+      name: result.user.displayName,
+      email: result.user.email,
+      photo: result.user.photoURL,
+    };
+
+    const res = await axios.post(
+      "http://localhost:3000/users",
+      userInfo
+    );
+
+    console.log("User created:", res.data);
+
+    Swal.fire({
+      title: "Success",
+      text: "Login Successful",
+      icon: "success",
+      background: "rgba(255,255,255,0.08)",
+      color: "white",
+      backdrop: "rgba(0,0,0,0.3)",
+    });
+
+    navigate(`${location.state ? location.state : "/"}`);
+
+  } catch (error) {
+    console.log("Google Sign Error:", error.response || error.message);
+  }
+};
+
+  
   const inputClasses =
     "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
 

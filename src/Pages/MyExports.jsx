@@ -3,6 +3,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { FaEdit, FaStar, FaTrash, FaTrashAlt } from "react-icons/fa";
 import useTitle from "../Hooks/useTitle";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const MyExports = () => {
@@ -10,81 +11,89 @@ const MyExports = () => {
   const [products, setProducts] = useState([]);
  
 
-  useEffect(() => {
-    fetch(`http://localhost:3000/my-exports?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+    useEffect(() => {
+     axios
+    .get(`http://localhost:3000/my-exports?email=${user?.email}`)
+    .then((res) => {
+      setProducts(res.data);
+    })
+    .catch((error) => {
+      console.log("Error fetching products:", error);
+    });
   }, [user]);
 
   // DELETE PRODUCT
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#6b7280",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch(`http://localhost:3000/products/${id}`, {
-          method: "DELETE",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.deletedCount > 0) {
-              const remaining = products.filter((p) => p._id !== id);
-              setProducts(remaining);
+const handleDelete = (id) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#6b7280",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3000/products/${id}`
+        );
 
-              Swal.fire({
-                icon: "success",
-                title: "Deleted!",
-                text: "Your product has been deleted.",
-                timer: 1500,
-                showConfirmButton: false,
-              });
-            }
+        if (res.data.deletedCount > 0) {
+          const remaining = products.filter((p) => p._id !== id);
+          setProducts(remaining);
+
+          Swal.fire({
+            icon: "success",
+            title: "Deleted!",
+            text: "Your product has been deleted.",
+            timer: 1500,
+            showConfirmButton: false,
           });
+        }
+      } catch (error) {
+        console.log("Delete error:", error.response || error.message);
       }
-    });
-  };
+    }
+  });
+};
 
   // UPDATE PRODUCT
-  const handleUpdate = (e, id) => {
-    e.preventDefault();
+const handleUpdate = async (e, id) => {
+  e.preventDefault();
 
-    const form = e.target;
+  const form = e.target;
 
-    const updatedProduct = {
-      productName: form.productName.value,
-      productImage: form.productImage.value,
-      price: form.price.value,
-      originCountry: form.originCountry.value,
-      rating: form.rating.value,
-      availableQuantity: form.availableQuantity.value,
-    };
-
-    fetch(`http://localhost:3000/products/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updatedProduct),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        document.getElementById(id).close();
-
-        Swal.fire({
-          icon: "success",
-          title: "Updated Successfully!",
-          text: "Your product has been updated.",
-        }).then(() => {
-          window.location.reload();
-        });
-      });
+  const updatedProduct = {
+    productName: form.productName.value,
+    productImage: form.productImage.value,
+    price: form.price.value,
+    originCountry: form.originCountry.value,
+    rating: form.rating.value,
+    availableQuantity: form.availableQuantity.value,
   };
+
+  try {
+    const res = await axios.patch(
+      `http://localhost:3000/products/${id}`,
+      updatedProduct
+    );
+
+    if (res.data.modifiedCount > 0) {
+      document.getElementById(id).close();
+
+      Swal.fire({
+        icon: "success",
+        title: "Updated Successfully!",
+        text: "Your product has been updated.",
+      }).then(() => {
+        window.location.reload();
+      });
+    }
+  } catch (error) {
+    console.log("Update error:", error.response || error.message);
+  }
+};
 
   const downloadCSV = () => {
     if (products.length === 0) return;

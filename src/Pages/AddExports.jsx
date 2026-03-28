@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 import Swal from "sweetalert2";
+
 import axios from "axios";
 
 
 const AddExports = () => {
   const { user } = useContext(AuthContext);
+  // const axiosInstance = useAxios();
  
 
  const handleAddProduct = async (e) => {

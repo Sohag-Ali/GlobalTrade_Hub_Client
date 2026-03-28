@@ -61,6 +61,13 @@ const ProductDetails = () => {
     const res = await axios.post("http://localhost:3000/imports", importData);
 
     if (res.data.insertedId) {
+       Swal.fire({
+        icon: "success",
+        title: "Import Successful!",
+        text: "Product imported successfully",
+        timer: 1500,
+        showConfirmButton: false,
+      });
 
       await axios.patch(
         `http://localhost:3000/products/import/${product._id}`,

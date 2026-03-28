@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -11,117 +12,109 @@ const Register = () => {
   const [passValidation, setPassValidation] = useState("");
   console.log(user);
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const name = e.target.name.value;
-    const photo = e.target.photo.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    console.log(name, photo, password, email);
+ const handleRegister = async (e) => {
+  e.preventDefault();
 
-    const upperCaseRegex = /[A-Z]/;
-    const lowerCaseRegex = /[a-z]/;
-    const minLength = 6;
+  const name = e.target.name.value;
+  const photo = e.target.photo.value;
+  const email = e.target.email.value;
+  const password = e.target.password.value;
 
-    if (!upperCaseRegex.test(password)) {
-      setPassValidation("Password Must be Uppercase!!");
-      return;
-    } else if (!lowerCaseRegex.test(password)) {
-      setPassValidation("Password Must be Loawercase!!");
-      return;
-    } else if (password.length < minLength) {
-      setPassValidation("Password Must be More then 6 Charecter!!");
-      return;
+  const upperCaseRegex = /[A-Z]/;
+  const lowerCaseRegex = /[a-z]/;
+  const minLength = 6;
+
+  if (!upperCaseRegex.test(password)) {
+    setPassValidation("Password Must be Uppercase!!");
+    return;
+  } else if (!lowerCaseRegex.test(password)) {
+    setPassValidation("Password Must be Lowercase!!");
+    return;
+  } else if (password.length < minLength) {
+    setPassValidation("Password Must be more than 6 characters!!");
+    return;
+  }
+
+  try {
+    const result = await register(email, password);
+
+    const userInfo = {
+      name: name,
+      email: email,
+      photo: photo,
+    };
+
+    const res = await axios.post(
+      "http://localhost:3000/users",
+      userInfo
+    );
+
+    console.log("User created:", res.data);
+
+    await logOut();
+
+    Swal.fire({
+      title: "Success",
+      text: "Registered Successfully",
+      icon: "success",
+      background: "rgba(255,255,255,0.08)",
+      color: "white",
+      backdrop: "rgba(0,0,0,0.3)",
+    });
+
+    navigate("/login");
+
+  } catch (error) {
+    if (error.code === "auth/email-already-in-use") {
+      Swal.fire({
+        title: "Error",
+        text: "This email is already registered!",
+        icon: "error",
+      });
+    } else {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+      });
     }
 
-    register(email, password)
-      .then((result) => {
-        const userInfo = {
-          name: name,
-          email: email,
-          photo: photo,
-        };
-        fetch("http://localhost:3000/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("User created:", data);
-        });
+    console.log("Register Error:", error.response || error.message);
+  }
+};
 
-        logOut();
-        Swal.fire({
-          title: "Success",
-          text: "Registered Successfully",
-          icon: "success",
-          background: "rgba(255,255,255,0.08)",
-          color: "white",
-          backdrop: "rgba(0,0,0,0.3)",
-        });
+ const handleGoogleSign = async () => {
+  try {
+    const result = await googleSignIn();
 
-        navigate("/login");
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          Swal.fire({
-            title: "Error",
-            text: "This email is already registered!",
-            icon: "error",
-            background: "rgba(255,255,255,0.08)",
-            color: "white",
-            backdrop: "rgba(0,0,0,0.3)",
-          });
-        } else {
-          Swal.fire({
-            title: "Error",
-            text: error.message,
-            icon: "error",
-            background: "rgba(255,255,255,0.08)",
-            color: "white",
-            backdrop: "rgba(0,0,0,0.3)",
-          });
-        }
-      });
-  };
+    const userInfo = {
+      name: result.user.displayName,
+      email: result.user.email,
+      photo: result.user.photoURL,
+    };
 
-  const handleGoogleSign = () => {
-    googleSignIn()
-      .then((result) => {
-          const userInfo = {        
-            name: result.user.displayName,
-            email: result.user.email,
-            photo: result.user.photoURL,  
-          };
-          fetch("http://localhost:3000/users", {
-            method: "POST",   
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userInfo),
-          })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log("User created:", data);
-          });
-          
-        Swal.fire({
-          title: "Success",
-          text: "Registered Successful",
-          icon: "success",
-          background: "rgba(255,255,255,0.08)",
-          color: "white",
-          backdrop: "rgba(0,0,0,0.3)",
-        });
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log("error found from google Sign In", error);
-      });
-  };
+    const res = await axios.post(
+      "http://localhost:3000/users",
+      userInfo
+    );
+
+    console.log("User created:", res.data);
+
+    Swal.fire({
+      title: "Success",
+      text: "Registered Successful",
+      icon: "success",
+      background: "rgba(255,255,255,0.08)",
+      color: "white",
+      backdrop: "rgba(0,0,0,0.3)",
+    });
+
+    navigate("/");
+
+  } catch (error) {
+    console.log("Google Sign Error:", error.response || error.message);
+  }
+};
 
   const inputClasses =
     "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";

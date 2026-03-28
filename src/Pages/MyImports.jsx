@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import useTitle from '../Hooks/useTitle';
 import notFoungImg from "../assets/not found.jpeg";
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const MyImports = () => {
 
@@ -13,14 +14,18 @@ const MyImports = () => {
 
   useEffect(() => {
 
-    fetch(`http://localhost:3000/imports?email=${user?.email}`)
-      .then(res => res.json())
-      .then(data => setImports(data));
+   axios
+    .get(`http://localhost:3000/imports?email=${user?.email}`)
+    .then((res) => {
+      setImports(res.data);
+    })
+    .catch((error) => {
+      console.log("Error fetching imports:", error);
+    });
 
   }, [user]);
 
- const handleRemove = (id) => {
-
+const handleRemove = (id) => {
   Swal.fire({
     title: "Are you sure?",
     text: "This imported product will be removed!",
@@ -29,37 +34,32 @@ const MyImports = () => {
     confirmButtonColor: "#ef4444",
     cancelButtonColor: "#6b7280",
     confirmButtonText: "Yes, Remove",
-  }).then((result) => {
-
+  }).then(async (result) => {
     if (result.isConfirmed) {
+      try {
+        const res = await axios.delete(
+          `http://localhost:3000/imports/${id}`
+        );
 
-      fetch(`http://localhost:3000/imports/${id}`, {
-        method: "DELETE",
-      })
-        .then(res => res.json())
-        .then(data => {
+        if (res.data.deletedCount > 0) {
+          const remaining = imports.filter(
+            (item) => item._id !== id
+          );
+          setImports(remaining);
 
-          if (data.deletedCount > 0) {
-
-            const remaining = imports.filter(item => item._id !== id);
-            setImports(remaining);
-
-            Swal.fire({
-              icon: "success",
-              title: "Removed!",
-              text: "Product removed from your imports.",
-              timer: 1500,
-              showConfirmButton: false,
-            });
-
-          }
-
-        });
-
+          Swal.fire({
+            icon: "success",
+            title: "Removed!",
+            text: "Product removed from your imports.",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }
+      } catch (error) {
+        console.log("Remove error:", error.response || error.message);
+      }
     }
-
   });
-
 };
 
     return (

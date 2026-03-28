@@ -13,6 +13,7 @@ import MyExports from '../Pages/MyExports';
 import AddExports from '../Pages/AddExports';
 import ProductDetails from '../Pages/ProductDetails';
 import Eorror from '../Pages/Eorror';
+import axios from 'axios';
 
 export const router = createBrowserRouter([
   {
@@ -67,7 +68,12 @@ export const router = createBrowserRouter([
       },
       {
         path: "/productDetails/:id",
-        loader: ({ params }) => fetch(`http://localhost:3000/products/${params.id}`),
+        loader: async ({ params }) => {
+    const res = await axios.get(
+      `http://localhost:3000/products/${params.id}`
+    );
+    return res.data;
+  },
         Component: ProductDetails,
        
       },

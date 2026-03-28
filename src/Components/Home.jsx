@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LatestProduct from "./LatestProduct";
 import useTitle from "../Hooks/useTitle";
+import axios from "axios";
 
 // const latestProductPromise = fetch(
 //   "http://localhost:3000/latest-products",
@@ -19,9 +20,14 @@ const Home = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/latest-products")
-      .then(res => res.json())
-      .then(data => setProducts(data));
+     axios
+    .get("http://localhost:3000/latest-products")
+    .then((res) => {
+      setProducts(res.data);
+    })
+    .catch((error) => {
+      console.log("Error fetching latest products:", error);
+    });
   }, []);
 
   return (

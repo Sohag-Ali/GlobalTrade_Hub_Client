@@ -3,15 +3,21 @@ import ProductCard from "./ProductCard";
 import { FaSearch } from "react-icons/fa";
 import Product from "../Components/Product";
 import useTitle from "../Hooks/useTitle";
+import axios from "axios";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/products?search=${search}`)
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+    axios
+    .get(`http://localhost:3000/products?search=${search}`)
+    .then((res) => {
+      setProducts(res.data);
+    })
+    .catch((error) => {
+      console.log("Error fetching products:", error);
+    });
   }, [search]);
   return (
     useTitle("Products"),
