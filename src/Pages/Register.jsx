@@ -5,11 +5,13 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 import axios from "axios";
+import useAxios from "../Hooks/useAxios";
 
 const Register = () => {
   const navigate = useNavigate();
   const { googleSignIn, register, user, logOut } = use(AuthContext);
   const [passValidation, setPassValidation] = useState("");
+  const axiosInstance = useAxios();
   console.log(user);
 
  const handleRegister = async (e) => {
@@ -44,8 +46,8 @@ const Register = () => {
       photo: photo,
     };
 
-    const res = await axios.post(
-      "http://localhost:3000/users",
+    const res = await axiosInstance.post(
+      "/users",
       userInfo
     );
 
@@ -93,8 +95,8 @@ const Register = () => {
       photo: result.user.photoURL,
     };
 
-    const res = await axios.post(
-      "http://localhost:3000/users",
+    const res = await axiosInstance.post(
+      "/users",
       userInfo
     );
 

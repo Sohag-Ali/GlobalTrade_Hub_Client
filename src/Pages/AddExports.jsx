@@ -3,11 +3,14 @@ import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 import Swal from "sweetalert2";
 
-import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { data } from "react-router";
 
 
 const AddExports = () => {
   const { user } = useContext(AuthContext);
+  // const axiosInstance = useAxios();
+  const axiosInstanceSecure = useAxiosSecure();
   // const axiosInstance = useAxios();
  
 
@@ -36,8 +39,8 @@ const AddExports = () => {
   };
 
   try {
-    const res = await axios.post(
-      "http://localhost:3000/products",
+    const res = await axiosInstanceSecure.post(
+      "/products",
       newProduct
     );
 

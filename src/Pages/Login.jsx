@@ -5,12 +5,14 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 import axios from "axios";
+import useAxios from "../Hooks/useAxios";
 
 const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { googleSignIn, login, resetPassword } = use(AuthContext);
   const [success, setSuccess] = useState(null);
+  const axiosInstance = useAxios();
   const handleLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -77,8 +79,8 @@ const handleGoogleSign = async () => {
       photo: result.user.photoURL,
     };
 
-    const res = await axios.post(
-      "http://localhost:3000/users",
+    const res = await axiosInstance.post(
+      "/users",
       userInfo
     );
 

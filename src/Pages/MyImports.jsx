@@ -6,16 +6,18 @@ import useTitle from '../Hooks/useTitle';
 import notFoungImg from "../assets/not found.jpeg";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const MyImports = () => {
 
     const { user } = useContext(AuthContext);
   const [imports, setImports] = useState([]);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
 
-   axios
-    .get(`http://localhost:3000/imports?email=${user?.email}`)
+   axiosSecure
+    .get(`/imports?email=${user?.email}`)
     .then((res) => {
       setImports(res.data);
     })
@@ -37,8 +39,8 @@ const handleRemove = (id) => {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        const res = await axios.delete(
-          `http://localhost:3000/imports/${id}`
+        const res = await axiosSecure.delete(
+          `/imports/${id}`
         );
 
         if (res.data.deletedCount > 0) {

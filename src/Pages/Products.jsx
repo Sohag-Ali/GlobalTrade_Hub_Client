@@ -3,15 +3,17 @@ import ProductCard from "./ProductCard";
 import { FaSearch } from "react-icons/fa";
 import Product from "../Components/Product";
 import useTitle from "../Hooks/useTitle";
-import axios from "axios";
+
+import useAxios from "../Hooks/useAxios";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const axiosInstance = useAxios();
 
   useEffect(() => {
-    axios
-    .get(`http://localhost:3000/products?search=${search}`)
+    axiosInstance
+    .get(`/products?search=${search}`)
     .then((res) => {
       setProducts(res.data);
     })

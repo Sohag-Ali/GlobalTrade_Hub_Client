@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import LatestProduct from "./LatestProduct";
 import useTitle from "../Hooks/useTitle";
 import axios from "axios";
+import useAxios from "../Hooks/useAxios";
 
 // const latestProductPromise = fetch(
 //   "http://localhost:3000/latest-products",
@@ -18,10 +19,11 @@ const Home = () => {
 
   useTitle("Home");
   const [products, setProducts] = useState([]);
+  const axiosInstance = useAxios(); // Use the custom hook to get the axios instance
 
   useEffect(() => {
-     axios
-    .get("http://localhost:3000/latest-products")
+     axiosInstance
+    .get("/latest-products")
     .then((res) => {
       setProducts(res.data);
     })

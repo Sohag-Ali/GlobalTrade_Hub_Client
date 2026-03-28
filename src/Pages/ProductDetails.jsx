@@ -6,9 +6,11 @@ import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const ProductDetails = () => {
   const product = useLoaderData();
+  const axiosSecure = useAxiosSecure();
 //   const { revalidate } = useRevalidator();
 //   const [stock, setStock] = useState(availableQuantity);
   const { user } = useContext(AuthContext);
@@ -58,7 +60,7 @@ const ProductDetails = () => {
   };
 
   try {
-    const res = await axios.post("http://localhost:3000/imports", importData);
+    const res = await axiosSecure.post("/imports", importData);
 
     if (res.data.insertedId) {
        Swal.fire({
@@ -69,8 +71,8 @@ const ProductDetails = () => {
         showConfirmButton: false,
       });
 
-      await axios.patch(
-        `http://localhost:3000/products/import/${product._id}`,
+      await axiosSecure.patch(
+        `/products/import/${product._id}`,
         {
           quantity: parseInt(quantity),
         }

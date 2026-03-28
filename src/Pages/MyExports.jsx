@@ -3,24 +3,26 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { FaEdit, FaStar, FaTrash, FaTrashAlt } from "react-icons/fa";
 import useTitle from "../Hooks/useTitle";
 import Swal from "sweetalert2";
-import axios from "axios";
+
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 
 const MyExports = () => {
   const { user } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
+  const axiosSecure = useAxiosSecure();
  
 
     useEffect(() => {
-     axios
-    .get(`http://localhost:3000/my-exports?email=${user?.email}`)
+     axiosSecure
+    .get(`/my-exports?email=${user?.email}`)
     .then((res) => {
       setProducts(res.data);
     })
     .catch((error) => {
       console.log("Error fetching products:", error);
     });
-  }, [user]);
+  }, [user, axiosSecure]);
 
   // DELETE PRODUCT
 const handleDelete = (id) => {
@@ -35,8 +37,8 @@ const handleDelete = (id) => {
   }).then(async (result) => {
     if (result.isConfirmed) {
       try {
-        const res = await axios.delete(
-          `http://localhost:3000/products/${id}`
+        const res = await axiosSecure.delete(
+          `/products/${id}`
         );
 
         if (res.data.deletedCount > 0) {
@@ -74,8 +76,8 @@ const handleUpdate = async (e, id) => {
   };
 
   try {
-    const res = await axios.patch(
-      `http://localhost:3000/products/${id}`,
+    const res = await axiosSecure.patch(
+      `/products/${id}`,
       updatedProduct
     );
 
