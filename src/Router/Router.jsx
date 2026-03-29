@@ -1,19 +1,19 @@
-import React from 'react';
+import React from "react";
 import { createBrowserRouter } from "react-router";
-import RootLayout from '../Layouts/RootLayout';
-import Home from '../Components/Home';
-import Login from '../Pages/Login';
-import Register from '../Pages/Register';
-import Products from '../Pages/Products';
-import Profile from '../Pages/Profile';
-import PrivateRoute from './PrivateRoute';
-import UpdateProfile from '../Pages/UpdateProfile';
-import MyImports from '../Pages/MyImports';
-import MyExports from '../Pages/MyExports';
-import AddExports from '../Pages/AddExports';
-import ProductDetails from '../Pages/ProductDetails';
-import Eorror from '../Pages/Eorror';
-import axios from 'axios';
+import RootLayout from "../Layouts/RootLayout";
+import Home from "../Components/Home";
+import Login from "../Pages/Login";
+import Register from "../Pages/Register";
+import Products from "../Pages/Products";
+import Profile from "../Pages/Profile";
+import PrivateRoute from "./PrivateRoute";
+import UpdateProfile from "../Pages/UpdateProfile";
+import MyImports from "../Pages/MyImports";
+import MyExports from "../Pages/MyExports";
+import AddExports from "../Pages/AddExports";
+import ProductDetails from "../Pages/ProductDetails";
+import Eorror from "../Pages/Eorror";
+import axios from "axios";
 
 export const router = createBrowserRouter([
   {
@@ -22,66 +22,75 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home></Home>
+        element: <Home></Home>,
       },
       {
         path: "/login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/register",
-        element: <Register></Register>
+        element: <Register></Register>,
       },
       {
         path: "/products",
-        element: <Products></Products>
+        element: <Products></Products>,
       },
       {
         path: "/profile",
-        element: <PrivateRoute>
-          <Profile></Profile>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/update-profile",
-        element: <PrivateRoute>
-          <UpdateProfile></UpdateProfile>
+        element: (
+          <PrivateRoute>
+            <UpdateProfile></UpdateProfile>
           </PrivateRoute>
+        ),
       },
       {
         path: "/myExports",
-        element: <PrivateRoute>
-          <MyExports></MyExports>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <MyExports></MyExports>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/myImports",
-        element: <PrivateRoute>
-          <MyImports></MyImports>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <MyImports></MyImports>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/addProduct",
-        element: <PrivateRoute>
-          <AddExports></AddExports>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <AddExports></AddExports>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/productDetails/:id",
         loader: async ({ params }) => {
-    const res = await axios.get(
-      `http://localhost:3000/products/${params.id}`
-    );
-    return res.data;
-  },
+          const res = await axios.get(
+            `https://global-hub-server.vercel.app/products/${params.id}`,
+          );
+          return res.data;
+        },
         Component: ProductDetails,
-       
       },
       {
         path: "*",
-        element: <Eorror></Eorror>
-      }
-    ]
+        element: <Eorror></Eorror>,
+      },
+    ],
   },
 ]);
 

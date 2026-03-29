@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import useTitle from '../Hooks/useTitle';
 import notFoungImg from "../assets/not found.jpeg";
 import Swal from 'sweetalert2';
-import axios from 'axios';
+
 import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const MyImports = () => {
