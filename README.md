@@ -1,16 +1,79 @@
-# React + Vite
+# 🌍 GlobalTrade Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 **Client Live Site:** https://global-trade-hab.web.app
 
-Currently, two official plugins are available:
+🔗 **Server Live Site:** https://global-hub-server.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📖 Project Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**GlobalTrade Hub** is a modern full-stack web application where users can explore global products, export their own items, and import products into their personal dashboard. The platform ensures smooth user experience with secure authentication, real-time updates, and a clean responsive UI.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Key Features
+
+* 🔐 **Authentication System** (Email/Password + Google Login)
+* 🌍 **Explore Global Products** with detailed information
+* 📦 **Add Export Products** with form validation
+* 📥 **Import Products** with quantity limit control
+* 🧾 **My Imports Dashboard** to manage imported items
+* 📤 **My Exports Dashboard** to manage user-added products
+* 🔄 **Real-time Quantity Update** after importing products
+* 🔍 **Search Functionality** based on product name
+* 🌙 **Dark / Light Mode Toggle**
+* 📱 **Fully Responsive Design** (Mobile, Tablet, Desktop)
+
+---
+
+## 🛠️ Technologies Used
+
+* ⚛️ React.js
+* 🎨 Tailwind CSS
+* 🔥 Firebase Authentication
+* 🍃 MongoDB
+* 🚀 Express.js
+* 🌐 Node.js
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+ ┣ components/
+ ┣ pages/
+ ┣ routes/
+ ┣ hooks/
+ ┣ firebase/
+ ┗ layouts/
+```
+
+---
+
+
+## 📌 Important Notes
+
+* 🚫 No default alert used (custom toast implemented)
+* 🔄 No reload issues on private routes
+* 🔐 Firebase domain added properly
+* ⚡ Single Page Application (SPA)
+
+---
+
+## 🎯 Future Improvements
+
+* 📊 Export data as CSV
+* 👥 Role-based system (Importer / Exporter)
+* 📈 Advanced filtering & sorting system
+
+---
+
+## 🙌 Author
+
+👨‍💻 Developed by **Sohag Ali**
+
+---
+
+⭐ If you like this project, don’t forget to give it a star!
