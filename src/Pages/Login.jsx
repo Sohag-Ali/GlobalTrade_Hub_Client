@@ -13,35 +13,34 @@ const Login = () => {
   const { googleSignIn, login, resetPassword } = use(AuthContext);
   const [success, setSuccess] = useState(null);
   const axiosInstance = useAxios();
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    login(email, password)
-      .then((result) => {
-        Swal.fire({
-          title: "Success",
-          text: `Login Successfull`,
-          icon: "success",
-          background: "rgba(255,255,255,0.08)",
-          color: "white",
-          backdrop: "rgba(0,0,0,0.3)",
-        });
-        setSuccess("User Login Successfully!!");
-        e.target.reset();
-        navigate(`${location.state ? location.state : "/"}`);
-      })
-      .catch((error) => {
-        Swal.fire({
-          title: "Error",
-          text: error.message,
-          icon: "error",
-          background: "rgba(255,255,255,0.08)",
-          color: "white",
-          backdrop: "rgba(0,0,0,0.3)",
-        });
+
+
+ const handleLogin = (e) => {
+  e.preventDefault();
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+
+  login(email, password)
+    .then((result) => {
+
+      Swal.fire({
+        title: "Success",
+        text: `Login Successful`,
+        icon: "success",
       });
-  };
+
+      setSuccess("User Login Successfully!!");
+      e.target.reset();
+      navigate(`${location.state ? location.state : "/"}`);
+    })
+    .catch((error) => {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+      });
+    });
+};
 
   const handleForgotPassword = () => {
     const email = document.querySelector("input[name='email']").value;
@@ -104,7 +103,7 @@ const handleGoogleSign = async () => {
 
   
   const inputClasses =
-    "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
+    "w-full p-3 rounded-full border border-base-300 bg-base-200 text-base-content text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
 
  useTitle("Login");
 

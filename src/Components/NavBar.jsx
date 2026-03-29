@@ -127,10 +127,10 @@ const NavBar = () => {
             className="flex items-center gap-1 text-2xl font-extrabold"
           >
             {/* Logo Icon */}
-            <span className=" text-white px-1 py-1 rounded-lg shadow">🌍</span>
+            <span className=" text-base-content px-1 py-1 rounded-lg shadow">🌍</span>
 
             {/* Logo Text */}
-            <span className="bg-gradient-to-r from-purple-500 to-indigo-600 bg-clip-text text-transparent">
+            <span className="hidden sm:inline bg-gradient-to-r from-purple-500 to-indigo-600 bg-clip-text text-transparent">
               GlobalTradeHub
             </span>
           </Link>

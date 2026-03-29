@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
-import axios from "axios";
+
 import useAxios from "../Hooks/useAxios";
 
 const Register = () => {
@@ -119,13 +119,13 @@ const Register = () => {
 };
 
   const inputClasses =
-    "w-full p-3 rounded-full border border-white/20 bg-white/10 text-white text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
+    "w-full p-3 rounded-full border border-base-300 bg-base-200 text-base-content text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
 
   return (
     useTitle("Register"),
     <div className="min-h-screen flex items-center justify-center px-4">
       <div
-        className="w-full max-w-md p-8 rounded-2xl shadow-xl backdrop-blur-lg border border-white/20"
+        className="w-full max-w-md p-8 rounded-2xl shadow-xl backdrop-blur-lg border border-base-300"
         style={{
           background: "rgba(255,255,255,0.08)",
           backdropFilter: "blur(14px)",
