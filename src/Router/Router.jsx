@@ -80,7 +80,7 @@ export const router = createBrowserRouter([
         path: "/productDetails/:id",
         loader: async ({ params }) => {
           const res = await axios.get(
-            `https://global-trade-hub-server.vercel.app/products/${params.id}`,
+            `https://global-trade-hub-blond.vercel.app/products/${params.id}`,
           );
           return res.data;
         },
