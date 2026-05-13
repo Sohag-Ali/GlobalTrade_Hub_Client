@@ -3,7 +3,8 @@
     "firebase deploy": "global-trade-hab",
     "npm run build": "global-trade-hab",
     "default\t": "global-trade-hab",
-    "default": "global-trade-hab"
+    "default": "global-tread-hub",
+    "production": "global-tread-hub"
   },
   "targets": {},
   "etags": {}

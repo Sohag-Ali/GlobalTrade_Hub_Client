@@ -39,6 +39,8 @@ const Register = () => {
 
   try {
     const result = await register(email, password);
+    const createdUser = result.user;
+    console.log("Registered user:", createdUser);
 
     const userInfo = {
       name: name,

@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router";
 
 const instance = axios.create({
-  baseURL: "https://global-hub-server.vercel.app",
+  baseURL: "https://global-trade-hub-server.vercel.app",
 });
 
 const useAxiosSecure = () => {
@@ -25,7 +25,7 @@ const useAxiosSecure = () => {
         return res;
       },
       (err) => {
-        const status = err.status;
+        const status = err.response?.status;
         if (status === 401 || status === 403) {
           console.log(
             "Response Interceptor: Unauthorized or Forbidden response received",

@@ -16,15 +16,27 @@ const AuthProvider = ({children }) => {
   //google
   const googleSignIn = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    return signInWithPopup(auth, googleProvider).then((result) => {
+      setUser(result.user);
+      setLoading(false);
+      return result;
+    });
   };
   const login = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    return signInWithEmailAndPassword(auth, email, password).then((result) => {
+      setUser(result.user);
+      setLoading(false);
+      return result;
+    });
   };
   const register = (email, password) => {
     setLoading(true);
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then((result) => {
+      setUser(result.user);
+      setLoading(false);
+      return result;
+    });
   };
   const logOut = () => {
     setLoading(true);
@@ -60,7 +72,9 @@ const AuthProvider = ({children }) => {
     resetPassword,
   
   };
-  return <AuthContext value={authInfo}>{children}</AuthContext>;
+  return (<AuthContext.Provider value={authInfo}>
+    {children}
+  </AuthContext.Provider>);
 };
 
 export default AuthProvider;

@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import useTitle from "../Hooks/useTitle";
-import axios from "axios";
+
 import useAxios from "../Hooks/useAxios";
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
   const { googleSignIn, login, resetPassword } = use(AuthContext);
   const [success, setSuccess] = useState(null);
   const axiosInstance = useAxios();
+  const redirectTo = location?.state?.from?.pathname || "/";
 
 
  const handleLogin = (e) => {
@@ -22,16 +23,18 @@ const Login = () => {
 
   login(email, password)
     .then((result) => {
-
+      const user = result.user;
+      console.log("Logged in user:", user);
       Swal.fire({
         title: "Success",
         text: `Login Successful`,
         icon: "success",
+      }).then(() => {
+        setSuccess("User Login Successfully!!");
+        e.target.reset();
+        navigate(redirectTo, { replace: true });
       });
 
-      setSuccess("User Login Successfully!!");
-      e.target.reset();
-      navigate(`${location.state ? location.state : "/"}`);
     })
     .catch((error) => {
       Swal.fire({
@@ -69,7 +72,9 @@ const Login = () => {
   };
 
 const handleGoogleSign = async () => {
+
   try {
+
     const result = await googleSignIn();
 
     const userInfo = {
@@ -78,32 +83,36 @@ const handleGoogleSign = async () => {
       photo: result.user.photoURL,
     };
 
-    const res = await axiosInstance.post(
-      "/users",
-      userInfo
-    );
+    try {
 
-    console.log("User created:", res.data);
+      await axiosInstance.post("/users", userInfo);
+
+    } catch (error) {
+
+      console.log("User already exists");
+
+    }
 
     Swal.fire({
       title: "Success",
       text: "Login Successful",
       icon: "success",
-      background: "rgba(255,255,255,0.08)",
-      color: "white",
-      backdrop: "rgba(0,0,0,0.3)",
     });
 
-    navigate(`${location.state ? location.state : "/"}`);
+    navigate(location?.state || "/", {
+      replace: true,
+    });
 
   } catch (error) {
-    console.log("Google Sign Error:", error.response || error.message);
+
+    console.log(error);
+
   }
 };
 
   
-  const inputClasses =
-    "w-full p-3 rounded-full border border-base-300 bg-base-200 text-base-content text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
+  // const inputClasses =
+  //   "w-full p-3 rounded-full border border-base-300 bg-base-200 text-base-content text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 placeholder-gray-300";
 
  useTitle("Login");
 
