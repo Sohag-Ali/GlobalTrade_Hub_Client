@@ -4,7 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { useNavigate } from "react-router";
 
 const instance = axios.create({
-  baseURL: "https://global-trade-hub-server.vercel.app",
+  baseURL: "https://global-trade-hub-blond.vercel.app",
 });
 
 const useAxiosSecure = () => {
